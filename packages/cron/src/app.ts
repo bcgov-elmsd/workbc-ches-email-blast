@@ -2,6 +2,10 @@ import express from "express"
 import cors from "cors"
 import helmet from "helmet"
 import morgan from "morgan"
+import cron from "node-cron"
+import "dotenv/config"
+
+import emailService from "./services/email.service"
 
 const corsOptions = {
     origin: process.env.ORIGIN_URL || process.env.OPENSHIFT_NODEJS_ORIGIN_URL || "http://localhost:3001",
@@ -18,9 +22,23 @@ app.set("trust proxy", "loopback, linklocal, uniquelocal")
 app.use(cors(corsOptions))
 app.use(helmet())
 
+// health check
 app.get("/", (req: Express.Request, res: any) => {
     res.send("Hello World!")
 })
+
+// cron job
+cron.schedule(
+    "* * * * *",
+    async () => {
+        console.log("running every minute", new Date().toLocaleString())
+        console.log(await emailService.getAllEmails())
+    },
+    {
+        scheduled: true,
+        timezone: "America/Vancouver"
+    }
+)
 
 const port = process.env.PORT || "8002"
 app.listen(port, () => {
