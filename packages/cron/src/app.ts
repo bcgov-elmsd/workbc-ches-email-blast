@@ -6,6 +6,7 @@ import cron from "node-cron"
 import "dotenv/config"
 
 import emailService from "./services/email.service"
+import commonService from "./services/common.service"
 
 const corsOptions = {
     origin: process.env.ORIGIN_URL || process.env.OPENSHIFT_NODEJS_ORIGIN_URL || "http://localhost:3001",
@@ -33,6 +34,7 @@ cron.schedule(
     async () => {
         console.log("running every minute", new Date().toLocaleString())
         console.log(await emailService.getAllEmails())
+        console.log(await commonService.getToken())
     },
     {
         scheduled: true,
