@@ -3,7 +3,7 @@ import { authApi } from "../db/ches-config"
 
 /**
  * @description get a token for the CHES API
- * @params
+ * @param
  * @returns {token: String}
  */
 const getToken = async () => {
