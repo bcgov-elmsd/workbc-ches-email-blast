@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios"
-import { authApi } from "../db/ches-config"
+import { authApi } from "../config/common.config"
 
 /**
  * @description get a token for the CHES API
