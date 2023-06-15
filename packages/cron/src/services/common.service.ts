@@ -1,6 +1,11 @@
 import { AxiosResponse } from "axios"
 import { authApi } from "../db/ches-config"
 
+/**
+ * @description get a token for the CHES API
+ * @params
+ * @returns {token: String}
+ */
 const getToken = async () => {
     try {
         const authURL = `realms/${process.env.COMMON_SERVICES_AUTH_REALM}/protocol/openid-connect/token`
