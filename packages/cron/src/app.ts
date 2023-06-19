@@ -28,19 +28,44 @@ app.get("/", (req: Express.Request, res: any) => {
     res.send("Hello World!")
 })
 
-// cron job
-cron.schedule(
-    "* * * * *",
-    async () => {
-        console.log("running every minute", new Date().toLocaleString())
-        console.log(await emailService.getAllEmails())
-        console.log(await commonService.getToken())
-    },
-    {
-        scheduled: true,
-        timezone: "America/Vancouver"
+// Ensure current cron job is complete before starting next one
+let inCron = false
+
+/**
+ * @description Get and send one email. Meant to be scheduled by a cron job
+ * @returns {Promise<void>}
+ */
+const getAndSendEmail = async (): Promise<void> => {
+    if (inCron) {
+        return
     }
-)
+    inCron = true
+
+    console.log("running every second", new Date().toLocaleString())
+    const token = await commonService.getToken()
+
+    // get and send one email
+    // Do we need email verification?
+    const recipient = await emailService.getEmail()
+    if (recipient != null) {
+        const res = await emailService.sendEmail(token, recipient.email)
+        const email = await emailService.updateEmail(recipient.id, "sent")
+        console.log(`email to ${email.email} sent with a response of`, res.data)
+    } else {
+        // End current job and scheduling of future jobs when there are no more pending emails
+        console.log("No pending emails. Stopping scheduler")
+        emailJob.stop()
+    }
+    inCron = false
+}
+
+// Cron job to schedule email delivery
+// between 8AM to 6PM PST, every 6 minutes send 60 emails
+// Note: maximum recommended usage is 60 emails per minute
+const emailJob = cron.schedule("* */6 * 8-18 * 1-5", getAndSendEmail, {
+    scheduled: true,
+    timezone: "America/Vancouver"
+})
 
 const port = process.env.PORT || "8002"
 app.listen(port, () => {
