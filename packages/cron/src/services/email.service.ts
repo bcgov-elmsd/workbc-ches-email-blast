@@ -58,7 +58,7 @@ const sendEmail = async (chesToken: string, recipient: string): Promise<AxiosRes
             priority: "normal",
             bodyType: "text", // "html" or "text"
             subject: "CHES test",
-            from: "noreply@gov.bc.ca",
+            from: "workbc-noreply@gov.bc.ca",
             body: "Hello, world!"
         }
 

@@ -45,7 +45,6 @@ const getAndSendEmail = async (): Promise<void> => {
     const token = await commonService.getToken()
 
     // get and send one email
-    // Do we need email verification?
     const recipient = await emailService.getEmail()
     if (recipient != null) {
         const res = await emailService.sendEmail(token, recipient.email)
