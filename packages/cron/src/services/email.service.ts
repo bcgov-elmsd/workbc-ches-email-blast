@@ -4,13 +4,13 @@ import prisma from "../db/config"
 import { chesApi } from "../config/common.config"
 
 /**
- * @description Get an email with status "pending"
+ * @description Get an email with specified status
  * @returns {Promise<Email | null>} Email from database or null (when no Email has status "pending")
  */
-const getEmail = async (): Promise<Email | null> =>
+const getEmailByStatus = async (status: string): Promise<Email | null> =>
     prisma.email.findFirst({
         where: {
-            status: "pending"
+            status
         }
     })
 
@@ -29,7 +29,7 @@ const getAllEmails = async (): Promise<Email[]> =>
 /**
  * @description Update status of an email in the database
  * @param {number} id id of email in database to change
- * @param {string} status New status; One of "pending" or "sent"
+ * @param {string} status New status; One of "pending", "sent" or "completed"
  * @returns {Promise<Email>} Email with updated status
  */
 const updateEmail = async (id: number, status: string): Promise<Email> =>
@@ -39,6 +39,17 @@ const updateEmail = async (id: number, status: string): Promise<Email> =>
         },
         data: {
             status
+        }
+    })
+
+// save messageId in db
+const setMsgId = async (id: number, messageId: string) =>
+    prisma.email.update({
+        where: {
+            id
+        },
+        data: {
+            messageId
         }
     })
 
@@ -75,9 +86,26 @@ const sendEmail = async (chesToken: string, recipient: string): Promise<AxiosRes
     }
 }
 
+const getStatus = async (chesToken: string, messageId: string) => {
+    try {
+        const status: AxiosResponse = await chesApi.get(`api/v1/status/${messageId}`, {
+            headers: {
+                Authorization: `Bearer ${chesToken}`,
+                "Content-Type": "application/json"
+            }
+        })
+        return status
+    } catch (error: any) {
+        console.log(JSON.stringify(error.response?.data))
+        throw new Error(error.response?.status)
+    }
+}
+
 export default {
-    getEmail,
+    getEmailByStatus,
     getAllEmails,
     updateEmail,
-    sendEmail
+    sendEmail,
+    getStatus,
+    setMsgId
 }

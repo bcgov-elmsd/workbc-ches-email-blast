@@ -45,23 +45,51 @@ const getAndSendEmail = async (): Promise<void> => {
     const token = await commonService.getToken()
 
     // get and send one email
-    const recipient = await emailService.getEmail()
+    const recipient = await emailService.getEmailByStatus("pending")
     if (recipient != null) {
+        // send email and save msgId
         const res = await emailService.sendEmail(token, recipient.email)
-        const email = await emailService.updateEmail(recipient.id, "sent")
-        console.log(`email to ${email.email} sent with a response of`, res.data)
-    } else {
-        // End current job and scheduling of future jobs when there are no more pending emails
-        console.log("No pending emails. Stopping scheduler")
+        const messageId = res.data.messages[0].msgId
+        await emailService.setMsgId(recipient.id, messageId)
+
+        // check and update email status to "completed" or "sent"
+        const statusRes = await emailService.getStatus(token, messageId)
+        const status = statusRes.data.status === "completed" ? "completed" : "sent"
+        const email = await emailService.updateEmail(recipient.id, status)
+        console.log(`initial status of email to ${email.email} is ${status}`)
+    }
+
+    // check and update status of sent emails
+    // Possible Issue: we are using prisma findFirst to get one email so if one email never completes we are stuck checking the status of this same email
+    // every time. Possible quick solution: a separate cron job that runs just once every few minutes that gets all emails
+    // with "sent" status and uses a for loop to check each one's status? Or inside this cron job, get array of all "sent" emails and randomly
+    // pick one to check each time?
+    // Not sure what conditions are needed to cause an email status to not update to "completed"
+    const sentEmail = await emailService.getEmailByStatus("sent")
+    if (sentEmail != null) {
+        const { messageId } = sentEmail
+        const statusRes = await emailService.getStatus(token, messageId)
+        const stat = statusRes.data.status
+        console.log(`new status of "sent" email to ${sentEmail.email} is ${stat}`)
+        if (stat === "completed") {
+            await emailService.updateEmail(sentEmail.id, stat)
+        }
+    }
+
+    // End current job and scheduling of future jobs when there are no pending or sent emails
+    // i.e. all emails are completed
+    if (recipient === null && sentEmail === null) {
+        console.log("No pending or sent emails. Stopping scheduler")
         emailJob.stop()
     }
+
     inCron = false
 }
 
 // Cron job to schedule email delivery
 // between 8AM to 6PM PST, every 6 minutes send 60 emails
 // Note: maximum recommended usage is 60 emails per minute
-const emailJob = cron.schedule("* */6 * 8-18 * 1-5", getAndSendEmail, {
+const emailJob = cron.schedule("* */3 * 8-18 * 1-5", getAndSendEmail, {
     scheduled: true,
     timezone: "America/Vancouver"
 })
