@@ -8,19 +8,19 @@ datasource db {
 }
 
 model Email {
-  id         Int         @id @default(autoincrement())
-  email      String      @unique
-  template   String      @default("")
-  status     String      @default("pending")
-  createdAt  DateTime    @default(now())
-  messageId  String      @default("")
-  name       String      @default("")
-  Submission Submission?
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
+  template   String       @default("")
+  status     String       @default("pending")
+  createdAt  DateTime     @default(now())
+  messageId  String       @default("")
+  name       String       @default("")
+  Submission Submission[]
 }
 
 model Submission {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
+  email     String
   createdAt DateTime @default(now())
   Email     Email    @relation(fields: [email], references: [email])
 }
