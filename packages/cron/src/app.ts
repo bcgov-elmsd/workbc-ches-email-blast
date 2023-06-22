@@ -59,25 +59,20 @@ const getAndSendEmail = async (): Promise<void> => {
         console.log(`initial status of email to ${email.email} is ${status}`)
     }
 
-    // check and update status of sent emails
-    // Possible Issue: we are using prisma findFirst to get one email so if one email never completes we are stuck checking the status of this same email
-    // every time. Possible quick solution: a separate cron job that runs just once every few minutes that gets all emails
-    // with "sent" status and uses a for loop to check each one's status? Or inside this cron job, get array of all "sent" emails and randomly
-    // pick one to check each time?
-    // Not sure what conditions are needed to cause an email status to not update to "completed"
+    // Check and update status of sent emails
     const sentEmail = await emailService.getEmailByStatus("sent")
     if (sentEmail != null) {
         const { messageId } = sentEmail
         const statusRes = await emailService.getStatus(token, messageId)
         const stat = statusRes.data.status
         console.log(`new status of "sent" email to ${sentEmail.email} is ${stat}`)
-        if (stat === "completed") {
+        if (stat === "completed" || stat === "failed" || stat === "cancelled") {
             await emailService.updateEmail(sentEmail.id, stat)
         }
     }
 
     // End current job and scheduling of future jobs when there are no pending or sent emails
-    // i.e. all emails are completed
+    // i.e. all emails are completed, failed, or cancelled
     if (recipient === null && sentEmail === null) {
         console.log("No pending or sent emails. Stopping scheduler")
         emailJob.stop()
