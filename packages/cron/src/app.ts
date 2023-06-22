@@ -52,9 +52,9 @@ const getAndSendEmail = async (): Promise<void> => {
         const messageId = res.data.messages[0].msgId
         await emailService.setMsgId(recipient.id, messageId)
 
-        // check and update email status to "completed" or "sent"
+        // check and update email status to "completed", "failed", "cancelled" or "sent"
         const statusRes = await emailService.getStatus(token, messageId)
-        const status = statusRes.data.status === "completed" ? "completed" : "sent"
+        const status = ["completed", "failed", "cancelled"].includes(statusRes.data.status) ? statusRes.data.status : "sent"
         const email = await emailService.updateEmail(recipient.id, status)
         console.log(`initial status of email to ${email.email} is ${status}`)
     }
