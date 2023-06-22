@@ -9,5 +9,6 @@ module.exports = {
             }
         }
     },
-    plugins: []
+    plugins: [],
+    prefix: "tw-" // This is important to avoid conflicts with other libraries
 }
