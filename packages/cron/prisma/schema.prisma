@@ -19,7 +19,8 @@ model Email {
 }
 
 model Submission {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-  Email Email  @relation(fields: [email], references: [email])
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  Email     Email    @relation(fields: [email], references: [email])
 }
