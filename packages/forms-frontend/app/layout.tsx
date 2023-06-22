@@ -1,8 +1,8 @@
 import "./globals.css"
 import React from "react"
-import { Inter } from "next/font/google"
+import dynamic from "next/dynamic"
 
-const inter = Inter({ subsets: ["latin"] })
+dynamic(() => require("bootstrap/dist/js/bootstrap.min.js"), { ssr: false })
 
 export const metadata = {
     title: "Create Next App",
@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body className={inter.className}>{children}</body>
+            <body>{children}</body>
         </html>
     )
 }
