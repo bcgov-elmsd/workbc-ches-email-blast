@@ -11,9 +11,11 @@ datasource db {
 }
 
 model Email {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  template String
-  status  String   @default("pending")
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  template  String
+  messageId String   @default("")
+  status    String   @default("pending")
   createdAt DateTime @default(now())
 }
