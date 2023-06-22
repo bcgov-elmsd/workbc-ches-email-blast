@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,11 +8,19 @@ datasource db {
 }
 
 model Email {
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
+  template   String       @default("")
+  status     String       @default("pending")
+  createdAt  DateTime     @default(now())
+  messageId  String       @default("")
+  name       String       @default("")
+  Submission Submission[]
+}
+
+model Submission {
   id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  template  String
-  messageId String   @default("")
-  status    String   @default("pending")
+  email     String
   createdAt DateTime @default(now())
+  Email     Email    @relation(fields: [email], references: [email])
 }
