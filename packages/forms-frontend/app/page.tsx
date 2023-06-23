@@ -1,9 +1,10 @@
 import React from "react"
+import Form from "./Form"
 
 export default function Home() {
     return (
         <main>
-            <h1>Form</h1>
+            <Form />
         </main>
     )
 }
