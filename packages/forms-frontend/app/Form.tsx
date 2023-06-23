@@ -34,7 +34,7 @@ const Form = () => (
 
             <div className="tw-mt-6">
                 <label htmlFor="location" className="font-weight-bold tw-block">
-                    Nearest Location
+                    Nearest WorkBC Centre
                     <select id="location" className="custom-select" defaultValue="One">
                         <option value="1">One</option>
                         <option value="2">Two</option>
