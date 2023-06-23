@@ -1,3 +1,6 @@
+@import "~@bcgov/bootstrap-theme/dist/css/bootstrap-theme.min.css";
+@import "~@bcgov/bc-sans/css/BCSans.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
