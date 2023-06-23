@@ -1,10 +1,7 @@
-import React from "react"
-import Form from "./Form"
-
 export default function Home() {
     return (
         <main>
-            <Form />
+            <h1 className="h1">Hello World</h1>
         </main>
     )
 }
