@@ -49,6 +49,7 @@ const control = (
           <tbody>
             <tr>
               <td height="16" style="border-spacing: 0px; border-collapse: collapse; line-height: 16px; font-size: 16px; width: 100%; height: 16px; margin: 0;" align="left">
+              Control template
               </td>
             </tr>
           </tbody>
