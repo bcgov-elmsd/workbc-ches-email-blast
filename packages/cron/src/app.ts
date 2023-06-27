@@ -84,7 +84,7 @@ const getAndSendEmail = async (): Promise<void> => {
 // Cron job to schedule email delivery
 // between 8AM to 6PM PST, every 6 minutes send 60 emails
 // Note: maximum recommended usage is 60 emails per minute
-const emailJob = cron.schedule("* */3 * 8-18 * 1-5", getAndSendEmail, {
+const emailJob = cron.schedule("* */6 * 8-18 * 1-5", getAndSendEmail, {
     scheduled: true,
     timezone: "America/Vancouver"
 })
