@@ -1,6 +1,7 @@
 import "./globals.css"
 import React from "react"
 import dynamic from "next/dynamic"
+import Providers from "@/utils/provider"
 
 dynamic(() => require("bootstrap/dist/js/bootstrap.min.js"), { ssr: false })
 
@@ -12,7 +13,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body>{children}</body>
+            <body>
+                <Providers>{children}</Providers>
+            </body>
         </html>
     )
 }
