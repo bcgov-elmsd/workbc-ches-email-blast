@@ -1,10 +1,27 @@
 "use client"
 
 import React from "react"
+import axios from "axios"
+import { useMutation } from "react-query"
+import { ToastContainer, toast } from "react-toastify"
+import { useRouter } from "next/navigation"
+import "react-toastify/dist/ReactToastify.css"
 import centres from "../../utils/centres"
 
 const Page = ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
     const { name, centre, email } = searchParams
+
+    const router = useRouter()
+
+    const mutation = useMutation({
+        mutationFn: (newSubmission: any) => axios.post("/api/form", newSubmission),
+        onSuccess: () => {
+            router.push("/form/success")
+        },
+        onError: (e: any) => {
+            toast.error(`Error submitting form: ${e.message}`)
+        }
+    })
 
     const [form, setForm] = React.useState({
         name: name || "",
@@ -15,17 +32,30 @@ const Page = ({ searchParams }: { searchParams: { [key: string]: string | string
         electronicsignature: false
     })
 
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (!form.electronicsignature) {
+            toast.error("Please sign the form")
+            return
+        }
+        mutation.mutate({
+            ...form,
+            centrename: centres.filter((c) => c.email === form.centreemail)[0].name
+        })
+    }
+
     React.useEffect(() => {
         console.log("form", form)
     }, [form])
 
     return (
-        <div className="container">
+        <div className="container pt-4">
+            <ToastContainer />
             <h1 className="h1">Contact WorkBC Centre</h1>
             <p>
                 <span className="text-danger font-weight-bold">*</span> Denotes a required field
             </p>
-            <form className="form-group">
+            <form className="form-group" onSubmit={onSubmit}>
                 <div className="tw-mt-6">
                     <label htmlFor="name" className="font-weight-bold tw-block">
                         First Name <span className="text-danger">*</span>

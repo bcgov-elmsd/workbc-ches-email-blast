@@ -9,6 +9,7 @@ const prisma = new PrismaClient()
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
         const json = await req.json()
+        console.log(json)
         if (!json.email) throw new Error("Email is required")
         const existing = await prisma.email.findUnique({
             where: {
