@@ -48,7 +48,7 @@ const getAndSendEmail = async (): Promise<void> => {
     const recipient = await emailService.getEmailByStatus("pending")
     if (recipient != null) {
         // send email and save msgId
-        const res = await emailService.sendEmail(token, recipient.email)
+        const res = await emailService.sendEmail(token, recipient)
         const messageId = res.data.messages[0].msgId
         await emailService.setMsgId(recipient.id, messageId)
 
