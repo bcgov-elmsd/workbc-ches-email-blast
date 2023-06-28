@@ -1,8 +1,9 @@
-FROM node:16-alpine
+FROM node:lts-alpine3.16
+ENV NODE_ENV production
 
 WORKDIR /cron
 
-COPY package.json ./
+COPY package*.json ./
 COPY tsconfig.json ./
 COPY prisma ./prisma/
 
