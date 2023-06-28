@@ -1,14 +1,15 @@
 FROM node:16-alpine
 
-COPY package.json /cron/package.json
-
 WORKDIR /cron
 
-RUN npm install
+COPY package.json ./
+COPY tsconfig.json ./
+COPY prisma ./prisma/
 
-COPY . /cron
+RUN npm i --omit=dev
 
-RUN npx tsup src
-RUN npx prisma generate
+COPY . ./
+
+RUN npm run build
 
 CMD [ "node", "dist/app.js" ]
