@@ -15,6 +15,7 @@ model Email {
   createdAt  DateTime     @default(now())
   messageId  String       @default("")
   name       String       @default("")
+  catchment  String       @default("")
   Submission Submission[]
 }
 
