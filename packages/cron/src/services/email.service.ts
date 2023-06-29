@@ -2,6 +2,8 @@ import { AxiosResponse } from "axios"
 import { Email } from ".prisma/client"
 import prisma from "../db/config"
 import { chesApi } from "../config/common.config"
+import controlTemplate from "../templates/control.template"
+import testTemplate from "../templates/test.template"
 
 /**
  * @description Get an email with specified status
@@ -56,21 +58,26 @@ const setMsgId = async (id: number, messageId: string) =>
 /**
  * @description Send an email to one recipient
  * @param {string} chesToken Authentication for CHES API
- * @param {string} recipient Address to receive email
+ * @param {Email} recipient Information relating to the email recipient and type of email they receive
  * @returns {AxiosResponse} Response from request to the CHES API
  */
-const sendEmail = async (chesToken: string, recipient: string): Promise<AxiosResponse> => {
+const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResponse> => {
     try {
-        // email is currently hardcoded in, but in the future we can add a
-        // function parameter to specify the correct template/form to use
+        // get email body with recipient's information
+        const firstname = recipient.name.split(" ")[0]
+        const body =
+            recipient.template === "test"
+                ? testTemplate.test("9", recipient.id, firstname, "#")
+                : controlTemplate.control("8", recipient.id, firstname, "#")
+
         const req = {
-            to: [recipient],
+            to: [recipient.email],
             encoding: "utf-8",
             priority: "normal",
-            bodyType: "text", // "html" or "text"
-            subject: "CHES test",
+            bodyType: "html", // "html" or "text"
+            subject: `Provincial government employment services (${recipient.template} template)`,
             from: "workbc-noreply@gov.bc.ca",
-            body: "Hello, world!"
+            body
         }
 
         const sendEmailResult: AxiosResponse = await chesApi.post("api/v1/email", req, {
