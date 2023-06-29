@@ -25,7 +25,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
         //  on success append a submission record
         const resp = await prisma.submission.create({
             data: {
-                email: json.email
+                email: json.email,
+                action: "Submitted a Short Form"
             }
         })
         return NextResponse.json(resp, {

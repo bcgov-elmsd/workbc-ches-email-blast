@@ -6,6 +6,10 @@ import { useMutation } from "react-query"
 import { ToastContainer, toast } from "react-toastify"
 import { useRouter } from "next/navigation"
 import "react-toastify/dist/ReactToastify.css"
+// Bootstrap CSS
+import "@bcgov/bootstrap-theme/dist/css/bootstrap-theme.min.css"
+// Bootstrap Bundle JS
+import "@bcgov/bootstrap-theme/dist/js/bootstrap-theme.min"
 import centres from "../../utils/centres"
 
 const Page = ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {

@@ -1,9 +1,6 @@
 import "./globals.css"
 import React from "react"
-import dynamic from "next/dynamic"
 import Providers from "@/utils/provider"
-
-dynamic(() => require("bootstrap/dist/js/bootstrap.min.js"), { ssr: false })
 
 export const metadata = {
     title: "Create Next App",
