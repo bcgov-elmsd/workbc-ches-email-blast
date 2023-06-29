@@ -41,7 +41,7 @@ const getAndSendEmail = async (): Promise<void> => {
     }
     inCron = true
 
-    console.log("running every second", new Date().toLocaleString())
+    console.log("running every second", new Date().toLocaleString("en-US", { timeZone: "America/Vancouver" }))
     const token = await commonService.getToken()
 
     // get and send one email
