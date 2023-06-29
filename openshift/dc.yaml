@@ -163,7 +163,6 @@ objects:
       spec:
         containers:
         - env:
-          - env:
           - name: DATABASE_URL
             valueFrom:
               secretKeyRef:
@@ -211,11 +210,11 @@ objects:
             periodSeconds: 10
             successThreshold: 1
             tcpSocket:
-              port: 3000
+              port: 8080
             timeoutSeconds: 1
           name: ${NAME}-form
           ports:
-          - containerPort: 3000
+          - containerPort: 8080
             protocol: TCP
           readinessProbe:
             failureThreshold: 3
@@ -223,7 +222,7 @@ objects:
             periodSeconds: 120
             successThreshold: 1
             tcpSocket:
-              port: 3000
+              port: 8080
             timeoutSeconds: 1
           resources:
             limits:
@@ -265,9 +264,9 @@ objects:
   spec:
     ports:
     - name: ${NAME}-form
-      port: 3000
+      port: 8080
       protocol: TCP
-      targetPort: 3000
+      targetPort: 8080
     selector:
       deploymentconfig: ${NAME}-form
 parameters:
