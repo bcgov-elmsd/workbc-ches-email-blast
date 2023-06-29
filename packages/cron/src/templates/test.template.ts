@@ -1,14 +1,14 @@
 /**
  * @description Fill in the test email template with tailored information
  * @param {string} matomoId ID for use with Matomo analytics
- * @param {string} uid Unique ID of email
+ * @param {number} uid Unique ID of email
  * @param {string} firstname Name of email recipient
  * @param {string} form Link to recipient's form
  * @returns {string} Filled in HTML content of email
  * */
 const test = (
     matomoId: string,
-    uid: string,
+    uid: number,
     firstname: string,
     form: string
 ): string => `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -19,9 +19,9 @@ const test = (
  <!-- Edit the code below this line -->
  <body style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 15px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 0; padding: 0; border: 0;">
     
-  <!-- Matomo Image Tracker-->
-  <img src="https://elmsd-matomo.pathfinder.gov.bc.ca/matomo.php?idsite=${matomoId}&amp;rec=1&amp;action_name=Email&amp&amp;uid=${uid}" style="border:0" alt="" />
-  <!-- End Matomo -->
+ <!-- Matomo Image Tracker-->
+ <img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=${matomoId}&amp;rec=1&uid=${uid}" style="border:0" alt="" />
+ <!-- End Matomo -->
     
   <table valign="top" style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 15px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0px; border-collapse: collapse; margin: 0; padding: 0; border: 0;">
   <tbody>
