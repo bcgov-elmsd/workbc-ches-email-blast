@@ -1,6 +1,6 @@
 import emailService from "../services/email.service"
 import commonService from "../services/common.service"
-import cronService from "../services/cron.service"
+// import cronService from "../services/cron.service"
 
 // Ensure current cron job is complete before starting next one
 let inCron = false
@@ -47,10 +47,10 @@ const getAndSendEmail = async (): Promise<void> => {
 
     // End current job and scheduling of future jobs when there are no pending or sent emails
     // i.e. all emails are completed, failed, or cancelled
-    if (recipient === null && sentEmail === null) {
-        console.log("No pending or sent emails. Stopping scheduler")
-        cronService.stopJob()
-    }
+    // if (recipient === null && sentEmail === null) {
+    //     console.log("No pending or sent emails. Stopping scheduler")
+    //     cronService.stopJob()
+    // }
 
     inCron = false
 }
