@@ -1,3 +1,10 @@
+"use client"
+
+// Bootstrap CSS
+import "@bcgov/bootstrap-theme/dist/css/bootstrap-theme.min.css"
+// Bootstrap Bundle JS
+import "@bcgov/bootstrap-theme/dist/js/bootstrap-theme.min"
+
 const page = () => (
     <div className="container">
         <div className="row">

@@ -15,6 +15,7 @@ model Email {
   createdAt  DateTime     @default(now())
   messageId  String       @default("")
   name       String       @default("")
+  catchment  String       @default("")
   Submission Submission[]
 }
 
@@ -22,5 +23,6 @@ model Submission {
   id        Int      @id @default(autoincrement())
   email     String
   createdAt DateTime @default(now())
+  action    String   @default("")
   Email     Email    @relation(fields: [email], references: [email])
 }
