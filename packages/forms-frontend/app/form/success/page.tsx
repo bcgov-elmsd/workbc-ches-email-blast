@@ -4,6 +4,7 @@
 import "@bcgov/bootstrap-theme/dist/css/bootstrap-theme.min.css"
 // Bootstrap Bundle JS
 import "@bcgov/bootstrap-theme/dist/js/bootstrap-theme.min"
+import "../../globals.css"
 
 const page = () => (
     <div className="container">
