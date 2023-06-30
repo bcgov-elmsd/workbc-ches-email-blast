@@ -12,5 +12,8 @@ RUN npm i --omit=dev
 COPY . ./
 
 RUN npm run build
+EXPOSE 8002
+
+ENV PORT 8002
 
 CMD [ "node", "dist/app.js" ]
