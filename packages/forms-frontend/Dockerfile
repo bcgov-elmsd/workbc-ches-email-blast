@@ -3,7 +3,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY package*.json ./
-RUN  npm install --production
+RUN yarn install --production
 
 FROM node:18-alpine AS builder
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN npm run build
+RUN yarn build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
