@@ -1,24 +1,27 @@
 FROM node:18-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
+ENV npm_config_cache /home/node/app/.npm
 
 COPY package*.json ./
-RUN yarn install --production
+RUN npm install --production --frozen-lockfile
 
 FROM node:18-alpine AS builder
 WORKDIR /app
+ENV npm_config_cache /home/node/app/.npm
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN yarn build
+RUN npm run build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV npm_config_cache /home/node/app/.npm
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
