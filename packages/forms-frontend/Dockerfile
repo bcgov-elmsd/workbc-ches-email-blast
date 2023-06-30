@@ -9,7 +9,7 @@ COPY . .
 RUN npx prisma generate
 # build
 RUN npm run build
-RUN npm clean cache --force
+RUN npm cache clean --force
 FROM node:18-alpine
 WORKDIR /app
 
