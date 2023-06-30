@@ -2,8 +2,8 @@ import { AxiosResponse } from "axios"
 import { Email } from ".prisma/client"
 import prisma from "../db/config"
 import { chesApi } from "../config/common.config"
-import controlTemplate from "../templates/control.template"
-import testTemplate from "../templates/test.template"
+import email1Template from "../templates/email1.template"
+import email2Template from "../templates/email2.template"
 
 /**
  * @description Get an email with specified status
@@ -67,8 +67,8 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
         const firstname = recipient.name.split(" ")[0]
         const body =
             recipient.template === "2 shortform"
-                ? testTemplate.test("9", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, "#")
-                : controlTemplate.control("8", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, "#")
+                ? email2Template.email2("9", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, "#")
+                : email1Template.email1("8", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, "#")
 
         const req = {
             to: [recipient.email],

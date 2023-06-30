@@ -7,7 +7,7 @@
  * @param {string} form Link to recipient's form
  * @returns {string} Filled in HTML content of email
  * */
-const test = (
+const email2 = (
     matomoId: string,
     uid: string,
     campaign: string,
@@ -160,5 +160,5 @@ const test = (
 </html>`
 
 export default {
-    test
+    email2
 }
