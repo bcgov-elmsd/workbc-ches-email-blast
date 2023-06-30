@@ -66,9 +66,9 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
         // get email body with recipient's information
         const firstname = recipient.name.split(" ")[0]
         const body =
-            recipient.template === "test"
-                ? testTemplate.test("9", encodeURIComponent(recipient.email), firstname, "#")
-                : controlTemplate.control("8", encodeURIComponent(recipient.email), firstname, "#")
+            recipient.template === "2 shortform"
+                ? testTemplate.test("9", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, "#")
+                : controlTemplate.control("8", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, "#")
 
         const req = {
             to: [recipient.email],
