@@ -1,14 +1,14 @@
 /**
  * @description Fill in the test email template with tailored information
  * @param {string} matomoId ID for use with Matomo analytics
- * @param {number} uid Unique ID of email
+ * @param {string} uid Unique ID of email
  * @param {string} firstname Name of email recipient
  * @param {string} form Link to recipient's form
  * @returns {string} Filled in HTML content of email
  * */
 const test = (
     matomoId: string,
-    uid: number,
+    uid: string,
     firstname: string,
     form: string
 ): string => `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -20,7 +20,7 @@ const test = (
  <body style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 15px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 0; padding: 0; border: 0;">
     
  <!-- Matomo Image Tracker-->
- <img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=${matomoId}&amp;rec=1&uid=${uid}" style="border:0" alt="" />
+ <img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=${matomoId}&amp;rec=1&uid=${uid}&action_name=Email" style="border:0" alt="" />
  <!-- End Matomo -->
     
   <table valign="top" style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 15px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0px; border-collapse: collapse; margin: 0; padding: 0; border: 0;">
@@ -36,6 +36,8 @@ const test = (
           <tbody>
             <tr>
               <td style="border-spacing: 0px; border-collapse: collapse; line-height: 24px; font-size: 15px; margin: 0;">
+                
+
   <table cellpadding="0" cellspacing="0" style="font-family: Helvetica, Arial, sans-serif; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0px; border-collapse: separate !important; width: 100%; overflow: hidden; border: 5.5px solid #FCBA19;padding: 9.75pt 9.0pt 9.0pt 9.0pt" bgcolor="#ffffff">
   <tbody>
     <tr>
@@ -105,7 +107,7 @@ const test = (
   </a>
   <div style="flex: 50%; align-self: stretch; border-radius: 4px;background-color:#ccccc6">
     <p style="line-height: 24px; font-size: 15px; margin: 3px 2px 2px 6px;"><b>NO</b>, I don't want to find out about the services and benefits that help me jumpstart my career today.</p>
-  </div>
+</div>
   </div>
         </div>
       </td>
