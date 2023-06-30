@@ -1,5 +1,6 @@
 FROM node:18-alpine as BUILD_IMAGE
 ENV NODE_ENV production
+ENV npm_config_cache /app/.npm
 WORKDIR /app
 COPY package*.json ./
 # install dependencies
@@ -13,6 +14,7 @@ RUN npm run build
 RUN npm cache clean --force
 FROM node:18-alpine
 WORKDIR /app
+ENV npm_config_cache /app/.npm
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
