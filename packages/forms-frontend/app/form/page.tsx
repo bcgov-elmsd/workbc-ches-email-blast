@@ -16,13 +16,21 @@ import centres from "../../utils/centres"
 const Page = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
-    const { name, centre, email } = { name: searchParams.get("name"), centre: searchParams.get("centre"), email: searchParams.get("email") }
+    const { name, centre, email, catchment } = {
+        name: searchParams.get("name"),
+        centre: Number(searchParams.get("centre")) || 1,
+        email: searchParams.get("email"),
+        catchment: searchParams.get("catchment")
+    }
 
     const [form, setForm] = React.useState({
         name: name || "",
         phone: "",
         email: email || "",
-        centreemail: centre ? centres.filter((c) => c.id === centre)[0].email : centres[0].email,
+        catchment: catchment || "01-ES",
+        centreemail:
+            centres.data.filter((c) => c.AbbreviatedCode === catchment)[0].Storefronts.filter((c) => c.id === centre)[0].Email ||
+            centres.data[0].Storefronts[0].Email,
         message: "",
         electronicsignature: false
     })
@@ -54,7 +62,8 @@ const Page = () => {
         }
         mutation.mutate({
             ...form,
-            centrename: centres.filter((c) => c.email === form.centreemail)[0].name
+            centrename: centres.data.filter((c) => c.AbbreviatedCode === form.catchment)[0].Storefronts.filter((c) => c.Email === form.centreemail)[0]
+                .name
         })
     }
 
@@ -113,14 +122,28 @@ const Page = () => {
                         <select
                             id="location"
                             className="custom-select"
+                            onChange={(e) => setForm({ ...form, catchment: e.target.value })}
+                            value={form.catchment}
+                        >
+                            {centres.data.map((ca) => (
+                                <option key={ca.CatchmentNo} value={ca.AbbreviatedCode}>
+                                    {ca.AbbreviatedCode} {ca.Title}
+                                </option>
+                            ))}
+                        </select>
+                        <select
+                            id="location"
+                            className="custom-select"
                             onChange={(e) => setForm({ ...form, centreemail: e.target.value })}
                             value={form.centreemail}
                         >
-                            {centres.map((c) => (
-                                <option key={c.email} value={c.email}>
-                                    {c.name}
-                                </option>
-                            ))}
+                            {centres.data
+                                .filter((ce) => ce.AbbreviatedCode === form.catchment)[0]
+                                .Storefronts.map((c) => (
+                                    <option key={c.id} value={c.Email}>
+                                        WorkBC Centre {c.name}
+                                    </option>
+                                ))}
                         </select>
                     </label>
                 </div>

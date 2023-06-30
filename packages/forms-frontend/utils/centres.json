@@ -1,0 +1,68 @@
+{
+    "data": [
+        {
+            "CatchmentNo": "1",
+            "AbbreviatedCode": "01-ES",
+            "CatchmentAreaCode": "101",
+            "Title": "Vancouver Island North",
+            "Storefronts": [
+                {
+                    "name": "Campbell River",
+                    "id": 1,
+                    "Address": "920 Alder Street, Campbell River, BC V9W 2P8",
+                    "Phone": "250-286-3441",
+                    "Fax": "250-286-3447",
+                    "Email": "brian.d.pham@gov.bc.ca",
+                    "Website": "https://workbc.ca/WorkBC-Centres/Vancouver-Island-Coast/Campbell-River.aspx",
+                    "BusinessWebsite": "http://workbccentre-campbellriver.ca",
+                    "FrenchServices": "N",
+                    "Coordinates": "-125.2434889,50.0240613"
+                },
+                {
+                    "name": "Port Hardy",
+                    "id": 2,
+                    "Address": "129-8950 Granville Street, Port Hardy, BC V0N 2P0",
+                    "Phone": "Toll-Free: 1-866-286-6788",
+                    "Fax": "250-949-5797",
+                    "Email": "trista.dhami@gov.bc.ca",
+                    "Website": "https://workbc.ca/WorkBC-Centres/Vancouver-Island-Coast/Port-Hardy.aspx",
+                    "BusinessWebsite": "http://workbccentre-porthardy.ca",
+                    "FrenchServices": "N",
+                    "Coordinates": "-127.4978505,50.7205817"
+                }
+            ]
+        },
+        {
+            "CatchmentNo": "2",
+            "AbbreviatedCode": "02-ES",
+            "CatchmentAreaCode": "102",
+            "Title": "Comox Valley - Powell River",
+            "Storefronts": [
+                {
+                    "name": "Courtenay",
+                    "id": 1,
+                    "Address": "103 - 555 4th Street, Courtenay, BC  V9N 1H3",
+                    "Phone": "250-334-3119",
+                    "Fax": "250-338-7594",
+                    "Email": "brian.d.pham@gov.bc.ca",
+                    "Website": "https://workbc.ca/WorkBC-Centres/Vancouver-Island-Coast/Courtenay.aspx",
+                    "BusinessWebsite": "http://workbccentre-courtenay.ca",
+                    "FrenchServices": "Y",
+                    "Coordinates": "-125.0034181,49.6903991"
+                },
+                {
+                    "name": "Powell River",
+                    "id": 2,
+                    "Address": "103 - 4511 Marine Avenue, Powell River, BC V8A 2K5",
+                    "Phone": "604-485-7958",
+                    "Fax": "604-485-7997",
+                    "Email": "trista.dhami@gov.bc.ca",
+                    "Website": "https://workbc.ca/WorkBC-Centres/Vancouver-Island-Coast/Powell-River.aspx",
+                    "BusinessWebsite": "http://workbccentre-powellriver.ca",
+                    "FrenchServices": "N",
+                    "Coordinates": "-124.5279451,49.8380448"
+                }
+            ]
+        }
+    ]
+}
