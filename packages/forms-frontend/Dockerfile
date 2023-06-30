@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 # install dependencies
 RUN npm install --omit=dev
+RUN npm cache clean --force
 
 COPY . .
 RUN npx prisma generate
@@ -16,8 +17,9 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+RUN chown -R nextjs:nodejs /app
+
 # copy from build image
-COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app ./
 COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app/package.json ./package.json
 COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app/.next ./.next
