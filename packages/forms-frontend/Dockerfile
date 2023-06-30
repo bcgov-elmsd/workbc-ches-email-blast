@@ -13,13 +13,14 @@ RUN npx prisma generate
 RUN npm run build
 RUN npm cache clean --force
 FROM node:18-alpine
+ENV NODE_ENV production
 WORKDIR /app
 ENV npm_config_cache /app/.npm
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-RUN chown -R nextjs:nodejs /app
+RUN chown nextjs:nodejs /app
 
 # copy from build image
 COPY --from=BUILD_IMAGE --chown=nextjs:nodejs /app/package.json ./package.json
@@ -31,4 +32,4 @@ USER nextjs
 
 ENV PORT 8080
 EXPOSE 8080
-CMD ["npm", "run", "start"]
+CMD ["node", ".next/standalone/server.js"]
