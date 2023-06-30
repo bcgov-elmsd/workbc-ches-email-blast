@@ -107,9 +107,9 @@ const email2 = (
   <a href="${form}" style="text-decoration: none; color: white; flex: 50%; align-self: stretch; margin-right: 8px; border-radius: 4px; background-color:#38598a" onmouseover = "this.style.backgroundColor = '#2c446b'" onmouseout = "this.style.backgroundColor = '#38598a'">
     <p style="line-height: 24px; font-size: 15px; margin: 3px 2px 2px 6px;"><b>YES</b>, I want to contact my local WorkBC Centre.</p>
   </a>
-  <div style="flex: 50%; align-self: stretch; border-radius: 4px;background-color:#ccccc6">
+  <a href=${`${process.env.REFUSAL_PAGE}?uid=${uid}`} style="flex: 50%; align-self: stretch; border-radius: 4px;background-color:#ccccc6">
     <p style="line-height: 24px; font-size: 15px; margin: 3px 2px 2px 6px;"><b>NO</b>, I don't want to find out about the services and benefits that help me jumpstart my career today.</p>
-</div>
+</a>
   </div>
         </div>
       </td>
@@ -138,7 +138,9 @@ const email2 = (
     </tr>
   </tbody>
 </table>
-    <img class="img-fluid" border="0" width="800" height="78" src="${process.env.IMAGES}public-static/workbc/bcgov-banner.png" alt="Canada BC Funding Acknowledgement" style="height: auto; line-height: 100%; outline: none; text-decoration: none; width: 100%; max-width: 100%; border: 0 none;">
+    <img class="img-fluid" border="0" width="800" height="78" src="${
+        process.env.IMAGES
+    }public-static/workbc/bcgov-banner.png" alt="Canada BC Funding Acknowledgement" style="height: auto; line-height: 100%; outline: none; text-decoration: none; width: 100%; max-width: 100%; border: 0 none;">
   </div>
       </td>
     </tr>

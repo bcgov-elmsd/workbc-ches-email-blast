@@ -65,10 +65,20 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
     try {
         // get email body with recipient's information
         const firstname = recipient.name.split(" ")[0]
-        const body =
-            recipient.template === "2 shortform"
-                ? email2Template.email2("9", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, "#")
-                : email1Template.email1("8", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, "#")
+        const catchment = "01-ES"
+        let body = ""
+
+        const form = recipient.template.includes("shortform")
+            ? `${process.env.SHORT_FORM}?uid=${encodeURIComponent(recipient.email)}&title=${encodeURIComponent(
+                  `${recipient.template} redirect`
+              )}&name=${encodeURIComponent(recipient.name)}&email=${encodeURIComponent(recipient.email)}&catchment=${catchment}`
+            : `${process.env.LONG_FORM}?uid=${encodeURIComponent(recipient.email)}&title=${encodeURIComponent(`${recipient.template} redirect`)}`
+
+        if (recipient.template === "2 shortform") {
+            body = email2Template.email2("9", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, form)
+        } else {
+            body = email1Template.email1("8", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, form)
+        }
 
         const req = {
             to: [recipient.email],
