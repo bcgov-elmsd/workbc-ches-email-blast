@@ -4,7 +4,7 @@ WORKDIR /app
 ENV npm_config_cache /home/node/app/.npm
 
 COPY package*.json ./
-RUN npm install --production --frozen-lockfile
+RUN npm install --production
 
 FROM node:18-alpine AS builder
 WORKDIR /app
