@@ -12,6 +12,7 @@
         "@bcgov/bc-sans": "^1.0.1",
         "@bcgov/bootstrap-theme": "https://github.com/bcgov/bootstrap-theme/releases/download/v1.1.1/bcgov-bootstrap-theme-1.1.1.tgz",
         "@prisma/client": "^4.16.1",
+        "@prisma/nextjs-monorepo-workaround-plugin": "^4.16.1",
         "autoprefixer": "^10.4.14",
         "axios": "^1.4.0",
         "bootstrap": "~4.3.1",
