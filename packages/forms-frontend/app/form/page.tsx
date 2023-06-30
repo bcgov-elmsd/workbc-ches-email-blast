@@ -17,10 +17,10 @@ const Page = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
     const { name, centre, email, catchment } = {
-        name: searchParams.get("name"),
-        centre: Number(searchParams.get("centre")) || 1,
-        email: searchParams.get("email"),
-        catchment: searchParams.get("catchment")
+        name: searchParams.get("amp;name"),
+        centre: Number(searchParams.get("amp;centre")) || 1,
+        email: searchParams.get("amp;email"),
+        catchment: searchParams.get("amp;catchment")
     }
 
     const [form, setForm] = React.useState({
@@ -29,7 +29,7 @@ const Page = () => {
         email: email || "",
         catchment: catchment || "01-ES",
         centreemail:
-            centres.data.filter((c) => c.AbbreviatedCode === catchment)[0].Storefronts.filter((c) => c.id === centre)[0].Email ||
+            centres.data.filter((c) => c.AbbreviatedCode === catchment)[0].Storefronts.filter((c) => c.id === centre)[0]?.Email ||
             centres.data[0].Storefronts[0].Email,
         message: "",
         electronicsignature: false
@@ -49,7 +49,7 @@ const Page = () => {
             toast.error(`Error submitting form: ${e.message}`)
         },
         onMutate: (newSubmission: any) => {
-            toast.info("Submitting form...")
+            toast.info(`Submitting form to ${newSubmission.centreemail}...`)
             setLoading(true)
         }
     })
@@ -116,7 +116,7 @@ const Page = () => {
                     </label>
                 </div>
 
-                <div className="tw-mt-6">
+                {/* <div className="tw-mt-6">
                     <label htmlFor="location" className="font-weight-bold tw-block">
                         Nearest WorkBC Centre
                         <select
@@ -146,7 +146,7 @@ const Page = () => {
                                 ))}
                         </select>
                     </label>
-                </div>
+                </div> */}
 
                 <div className="tw-mt-6">
                     <label htmlFor="message" className="font-weight-bold tw-block">
