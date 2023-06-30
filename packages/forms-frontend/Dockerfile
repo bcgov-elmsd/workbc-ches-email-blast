@@ -5,6 +5,7 @@ FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 USER 0
 WORKDIR /app
+ENV NODE_ENV production
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* ../../package-lock.json* package-lock.json* pnpm-lock.yaml* ./
 
@@ -13,6 +14,8 @@ COPY package.json yarn.lock* ../../package-lock.json* package-lock.json* pnpm-lo
 FROM base AS builder
 USER 0
 WORKDIR /app
+
+ENV NODE_ENV production
 # COPY --from=deps ./node_modules ./node_modules
 COPY . .
 
