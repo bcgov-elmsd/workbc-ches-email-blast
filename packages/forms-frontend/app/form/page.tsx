@@ -4,7 +4,7 @@ import React from "react"
 import axios from "axios"
 import { useMutation } from "react-query"
 import { ToastContainer, toast } from "react-toastify"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import "react-toastify/dist/ReactToastify.css"
 // Bootstrap CSS
 import "@bcgov/bootstrap-theme/dist/css/bootstrap-theme.min.css"
@@ -12,10 +12,10 @@ import "@bcgov/bootstrap-theme/dist/css/bootstrap-theme.min.css"
 import "@bcgov/bootstrap-theme/dist/js/bootstrap-theme.min"
 import centres from "../../utils/centres"
 
-const Page = ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
-    const { name, centre, email } = searchParams
-
+const Page = () => {
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const { name, centre, email } = { name: searchParams.get("name"), centre: searchParams.get("centre"), email: searchParams.get("email") }
 
     const mutation = useMutation({
         mutationFn: (newSubmission: any) => axios.post("/api/form", newSubmission),
