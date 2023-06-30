@@ -1,14 +1,15 @@
 FROM node:18-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-ENV npm_config_cache /home/node/app/.npm
+ENV npm_config_cache /app/.npm
 
 COPY package*.json ./
-RUN npm install --production
+RUN npm install --omit=dev
+RUN npm cache clean --force
 
 FROM node:18-alpine AS builder
 WORKDIR /app
-ENV npm_config_cache /home/node/app/.npm
+ENV npm_config_cache /app/.npm
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
@@ -21,10 +22,12 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED 1
-ENV npm_config_cache /home/node/app/.npm
+ENV npm_config_cache /app/.npm
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+
+RUN mkdir "/app/.npm" && chown -R 1001:65533 "/app/.npm"
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
