@@ -1,43 +1,22 @@
-FROM node:18-alpine AS deps
-RUN apk add --no-cache libc6-compat
+FROM node:18-alpine as BUILD_IMAGE
+ENV NODE_ENV production
 WORKDIR /app
-ENV npm_config_cache /app/.npm
-
 COPY package*.json ./
+# install dependencies
 RUN npm install --omit=dev
-RUN npm cache clean --force
 
-FROM node:18-alpine AS builder
-WORKDIR /app
-ENV npm_config_cache /app/.npm
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-ENV NEXT_TELEMETRY_DISABLED 1
-
+RUN npx prisma generate
+# build
 RUN npm run build
-RUN npm cache clean --force
-
-FROM node:18-alpine AS runner
+FROM node:18-alpine
 WORKDIR /app
-
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV npm_config_cache /app/.npm
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-RUN mkdir "/app/.npm" && chown -R 1001:65533 "/app/.npm"
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-USER nextjs
-
-EXPOSE 8080
+# copy from build image
+COPY --from=BUILD_IMAGE /app/package.json ./package.json
+COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
+COPY --from=BUILD_IMAGE /app/.next ./.next
+COPY --from=BUILD_IMAGE /app/public ./public
 
 ENV PORT 8080
-
-CMD ["npm", "start"]
+EXPOSE 8080
+CMD ["yarn", "start"]
