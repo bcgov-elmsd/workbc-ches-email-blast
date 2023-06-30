@@ -11,7 +11,7 @@ import "@bcgov/bootstrap-theme/dist/css/bootstrap-theme.min.css"
 // Bootstrap Bundle JS
 import "@bcgov/bootstrap-theme/dist/js/bootstrap-theme.min"
 import "../globals.css"
-import centres from "../../utils/centres"
+import centres from "./centres.json"
 
 const Page = () => {
     const router = useRouter()
