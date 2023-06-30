@@ -62,7 +62,8 @@ const Page = () => {
         }
         mutation.mutate({
             ...form,
-            centrename: centres.data.filter((c) => c.AbbreviatedCode === catchment)[0].Storefronts.filter((c) => c.Email === form.centreemail)[0].name
+            centrename: centres.data.filter((c) => c.AbbreviatedCode === form.catchment)[0].Storefronts.filter((c) => c.Email === form.centreemail)[0]
+                .name
         })
     }
 
