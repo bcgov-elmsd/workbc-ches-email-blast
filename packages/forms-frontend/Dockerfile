@@ -16,6 +16,7 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npm run build
+RUN npm cache clean --force
 
 FROM node:18-alpine AS runner
 WORKDIR /app
