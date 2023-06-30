@@ -10,22 +10,13 @@ import "react-toastify/dist/ReactToastify.css"
 import "@bcgov/bootstrap-theme/dist/css/bootstrap-theme.min.css"
 // Bootstrap Bundle JS
 import "@bcgov/bootstrap-theme/dist/js/bootstrap-theme.min"
+import "../globals.css"
 import centres from "../../utils/centres"
 
 const Page = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
     const { name, centre, email } = { name: searchParams.get("name"), centre: searchParams.get("centre"), email: searchParams.get("email") }
-
-    const mutation = useMutation({
-        mutationFn: (newSubmission: any) => axios.post("/api/form", newSubmission),
-        onSuccess: () => {
-            router.push("/form/success")
-        },
-        onError: (e: any) => {
-            toast.error(`Error submitting form: ${e.message}`)
-        }
-    })
 
     const [form, setForm] = React.useState({
         name: name || "",
@@ -34,6 +25,25 @@ const Page = () => {
         centreemail: centre ? centres.filter((c) => c.id === centre)[0].email : centres[0].email,
         message: "",
         electronicsignature: false
+    })
+
+    const [loading, setLoading] = React.useState(false)
+
+    const mutation = useMutation({
+        mutationFn: (newSubmission: any) => axios.post("/api/form", newSubmission),
+        onSuccess: () => {
+            setLoading(false)
+            // toast.success("Form submitted successfully")
+            router.push("/form/success")
+        },
+        onError: (e: any) => {
+            setLoading(false)
+            toast.error(`Error submitting form: ${e.message}`)
+        },
+        onMutate: (newSubmission: any) => {
+            toast.info("Submitting form...")
+            setLoading(true)
+        }
     })
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -147,8 +157,8 @@ const Page = () => {
                 </div>
 
                 <div className="tw-mt-6 text-center">
-                    <button type="submit" className="btn btn-primary" style={{ width: "200px", height: "50px" }}>
-                        Submit
+                    <button type="submit" className="btn btn-primary" style={{ width: "200px", height: "50px" }} disabled={loading}>
+                        {loading ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" /> : "Submit"}
                     </button>
                 </div>
             </form>
