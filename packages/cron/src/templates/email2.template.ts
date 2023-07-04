@@ -107,7 +107,7 @@ const email2 = (
   <a href="${form}" style="text-decoration: none; color: white; flex: 50%; align-self: stretch; margin-right: 8px; border-radius: 4px; background-color:#38598a" onmouseover = "this.style.backgroundColor = '#2c446b'" onmouseout = "this.style.backgroundColor = '#38598a'">
     <p style="line-height: 24px; font-size: 15px; margin: 3px 2px 2px 6px;"><b>YES</b>, I want to contact my local WorkBC Centre.</p>
   </a>
-  <a href=${`${process.env.REFUSAL_PAGE}?uid=${uid}`} style="flex: 50%; align-self: stretch; border-radius: 4px;background-color:#ccccc6">
+  <a href="${`${process.env.REFUSAL_PAGE}?uid=${uid}`}" style="text-decoration: none; color: black; flex: 50%; align-self: stretch; border-radius: 4px;background-color:#ccccc6">
     <p style="line-height: 24px; font-size: 15px; margin: 3px 2px 2px 6px;"><b>NO</b>, I don't want to find out about the services and benefits that help me jumpstart my career today.</p>
 </a>
   </div>
