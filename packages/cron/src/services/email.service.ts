@@ -2,8 +2,8 @@ import { AxiosResponse } from "axios"
 import { Email } from ".prisma/client"
 import prisma from "../db/config"
 import { chesApi } from "../config/common.config"
-import controlTemplate from "../templates/control.template"
-import testTemplate from "../templates/test.template"
+import email1Template from "../templates/email1.template"
+import email2Template from "../templates/email2.template"
 
 /**
  * @description Get an email with specified status
@@ -65,10 +65,20 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
     try {
         // get email body with recipient's information
         const firstname = recipient.name.split(" ")[0]
-        const body =
-            recipient.template === "test"
-                ? testTemplate.test("9", recipient.id, firstname, "#")
-                : controlTemplate.control("8", recipient.id, firstname, "#")
+        const catchment = "01-ES"
+        let body = ""
+
+        const form = recipient.template.includes("shortform")
+            ? `${process.env.SHORT_FORM}?uid=${encodeURIComponent(recipient.email)}&title=${encodeURIComponent(
+                  `${recipient.template} redirect`
+              )}&name=${encodeURIComponent(recipient.name)}&email=${encodeURIComponent(recipient.email)}&catchment=${catchment}`
+            : `${process.env.LONG_FORM}?uid=${encodeURIComponent(recipient.email)}&title=${encodeURIComponent(`${recipient.template} redirect`)}`
+
+        if (recipient.template === "2 shortform") {
+            body = email2Template.email2("9", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, form)
+        } else {
+            body = email1Template.email1("8", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, form)
+        }
 
         const req = {
             to: [recipient.email],

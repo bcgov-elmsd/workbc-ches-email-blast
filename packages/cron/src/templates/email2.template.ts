@@ -1,14 +1,16 @@
 /**
- * @description Fill in the control email template with tailored information
+ * @description Fill in the test ("2 shortform") email template with tailored information
  * @param {string} matomoId ID for use with Matomo analytics
  * @param {string} uid Unique ID of email
+ * @param {string} campaign Name of Matomo campaign
  * @param {string} firstname Name of email recipient
  * @param {string} form Link to recipient's form
  * @returns {string} Filled in HTML content of email
  * */
-const control = (
+const email2 = (
     matomoId: string,
-    uid: number,
+    uid: string,
+    campaign: string,
     firstname: string,
     form: string
 ): string => `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -20,7 +22,7 @@ const control = (
  <body style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 15px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 0; padding: 0; border: 0;">
     
  <!-- Matomo Image Tracker-->
- <img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=${matomoId}&amp;rec=1&uid=${uid}" style="border:0" alt="" />
+ <img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=${matomoId}&amp;rec=1&amp;uid=${uid}&amp;_rcn=${campaign}&amp;action_name=Email" style="border:0" alt="" />
  <!-- End Matomo -->
     
   <table valign="top" style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 15px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0px; border-collapse: collapse; margin: 0; padding: 0; border: 0;">
@@ -36,6 +38,8 @@ const control = (
           <tbody>
             <tr>
               <td style="border-spacing: 0px; border-collapse: collapse; line-height: 24px; font-size: 15px; margin: 0;">
+                
+
   <table cellpadding="0" cellspacing="0" style="font-family: Helvetica, Arial, sans-serif; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0px; border-collapse: separate !important; width: 100%; overflow: hidden; border: 5.5px solid #FCBA19;padding: 9.75pt 9.0pt 9.0pt 9.0pt" bgcolor="#ffffff">
   <tbody>
     <tr>
@@ -88,9 +92,9 @@ const control = (
         <table class="card-body" cellpadding="0" cellspacing="0" style="font-family: Helvetica, Arial, sans-serif; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-spacing: 0px; border-collapse: collapse; width: 100%;">
   <tbody>
     <tr>
-      <td style="border-spacing: 0px; border-collapse: collapse; line-height: 24px; font-size: 15px; width: 100%; margin: 0; padding: 16px 20px 20px 20px;">
+      <td style="border-spacing: 0px; border-collapse: collapse; line-height: 24px; font-size: 15px; width: 100%; margin: 0; padding: 16px 20px 16px 20px;">
         <div>
-          <p style="line-height: 24px; font-size: 15px; margin: 0; text-align: center"><b>Start the conversation</b></p>
+          <p style="line-height: 24px; font-size: 15px; margin: 0; text-align: center"><b>Are you ready to start a conversation?</b></p>
 <table class="s-2 w-100" cellpadding="0" cellspacing="0" style="width: 100%;">
   <tbody>
     <tr>
@@ -99,27 +103,26 @@ const control = (
     </tr>
   </tbody>
 </table>
-          <p style="line-height: 24px; font-size: 15px; margin: 0;"><b>Step 1: </b><a href="${form}">CLICK HERE</a> to contact your local WorkBC Centre. It'll only take 3 minutes.</p>
-<table class="s-2 w-100" cellpadding="0" cellspacing="0" style="width: 100%;">
-  <tbody>
-    <tr>
-      <td height="8" style="border-spacing: 0px; border-collapse: collapse; line-height: 8px; font-size: 8px; width: 100%; height: 8px; margin: 0;">
-      </td>
-    </tr>
-  </tbody>
-</table>
-        <p style="line-height: 24px; font-size: 15px; margin: 0;"><b>Step 2:</b> A team member will be in touch soon. No further action is required.</p>
+<div style="display: flex">
+  <a href="${form}" style="text-decoration: none; color: white; flex: 50%; align-self: stretch; margin-right: 8px; border-radius: 4px; background-color:#38598a" onmouseover = "this.style.backgroundColor = '#2c446b'" onmouseout = "this.style.backgroundColor = '#38598a'">
+    <p style="line-height: 24px; font-size: 15px; margin: 3px 2px 2px 6px;"><b>YES</b>, I want to contact my local WorkBC Centre.</p>
+  </a>
+  <a href=${`${process.env.REFUSAL_PAGE}?uid=${uid}`} style="flex: 50%; align-self: stretch; border-radius: 4px;background-color:#ccccc6">
+    <p style="line-height: 24px; font-size: 15px; margin: 3px 2px 2px 6px;"><b>NO</b>, I don't want to find out about the services and benefits that help me jumpstart my career today.</p>
+</a>
+  </div>
         </div>
       </td>
     </tr>
   </tbody>
 </table>
+<em style="font-size:14px">If you click “YES,” one of our team members will be in touch soon. No further action is required.</em>
+
       </div>
       </td>
     </tr>
   </tbody>
 </table>
-
       <table class="s-2 w-100" cellpadding="0" cellspacing="0" style="width: 100%;">
   <tbody>
     <tr>
@@ -135,13 +138,14 @@ const control = (
     </tr>
   </tbody>
 </table>
-    <img class="img-fluid" border="0" width="750" height="78" src="${process.env.IMAGES}public-static/workbc/bcgov-banner.png" alt="Canada BC Funding Acknowledgement" style="height: auto; line-height: 100%; outline: none; text-decoration: none; width: 100%; max-width: 100%; border: 0 none;">
+    <img class="img-fluid" border="0" width="800" height="78" src="${
+        process.env.IMAGES
+    }public-static/workbc/bcgov-banner.png" alt="Canada BC Funding Acknowledgement" style="height: auto; line-height: 100%; outline: none; text-decoration: none; width: 100%; max-width: 100%; border: 0 none;">
   </div>
       </td>
     </tr>
   </tbody>
 </table>
-
               </td>
             </tr>
           </tbody>
@@ -158,5 +162,5 @@ const control = (
 </html>`
 
 export default {
-    control
+    email2
 }
