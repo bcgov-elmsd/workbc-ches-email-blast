@@ -9,14 +9,13 @@ datasource db {
 
 model Email {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
+  email     String   
   template  String   @default("")
   status    String   @default("pending")
   createdAt DateTime @default(now())
   messageId String   @default("")
   name      String   @default("")
   catchment  String   @default("")
-  Submission Submission[]
 }
 
 model Submission {
@@ -24,6 +23,5 @@ model Submission {
   email     String   
   createdAt DateTime @default(now())
   action   String   @default("")
-  Email   Email    @relation(fields: [email], references: [email])
 }
 
