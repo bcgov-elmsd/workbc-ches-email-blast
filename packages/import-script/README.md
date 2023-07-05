@@ -16,6 +16,8 @@ pip install -r requirements.txt
 
 ## Usage
 
+Fill out a .env with the database informations using the provided .env.sample file
+
 sample.csv will be the csv file you have containing the data for the trial
 
 ```bash
