@@ -72,7 +72,7 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
             ? `${process.env.SHORT_FORM}?uid=${encodeURIComponent(recipient.email)}&title=${encodeURIComponent(
                   `${recipient.template} redirect`
               )}&name=${encodeURIComponent(recipient.name)}&email=${encodeURIComponent(recipient.email)}&catchment=${catchment}`
-            : `${process.env.LONG_FORM}?uid=${encodeURIComponent(recipient.email)}&title=${encodeURIComponent(`${recipient.template} redirect`)}`
+            : `${process.env.LONG_FORM}?uid=${encodeURIComponent(recipient.email)}&title=${encodeURIComponent(recipient.template)}%20redirect`
 
         if (recipient.template === "2 shortform") {
             body = email2Template.email2("9", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, form)
