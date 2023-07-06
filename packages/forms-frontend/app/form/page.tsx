@@ -67,10 +67,6 @@ const Page = () => {
         })
     }
 
-    React.useEffect(() => {
-        console.log("form", form)
-    }, [form])
-
     return (
         <div className="container pt-4">
             <ToastContainer />
