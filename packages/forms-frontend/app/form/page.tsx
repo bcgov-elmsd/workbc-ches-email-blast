@@ -70,6 +70,9 @@ const Page = () => {
     return (
         <div className="container pt-4">
             <ToastContainer />
+            <p className="tw-text-center tw-text-2xl tw-text-red-600 tw-font-bold">
+                This text is not final. It is a placeholder and can be changed later.
+            </p>
             <h1 className="h1">Contact WorkBC Centre</h1>
             <p>
                 <span className="text-danger font-weight-bold">*</span> Denotes a required field
