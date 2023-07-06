@@ -51,6 +51,7 @@ const email2 = (
       <td style="border-spacing: 0px; border-collapse: collapse; line-height: 24px; font-size: 15px; width: 100%; margin: 0; padding: 0px 20px 20px 20px;">
         <div>
 
+<p style="line-height: 30px; font-size: 15px; margin-bottom: 10px; color: red">This text is not final. It is a placeholder and can be changed later.</p>
 
 <p style="line-height: 24px; font-size: 15px; margin: 0;">Hello ${firstname},</p>
 <table class="s-3 w-100" cellpadding="0" cellspacing="0" style="width: 100%;">
