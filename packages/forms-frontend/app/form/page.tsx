@@ -49,7 +49,14 @@ const Page = () => {
             toast.error(`Error submitting form: ${e.message}`)
         },
         onMutate: (newSubmission: any) => {
-            toast.info(`Submitting form to ${newSubmission.centreemail}...`)
+            console.log(newSubmission)
+            toast.info(
+                `Submitting form to ${
+                    centres.data
+                        .filter((c: any) => c.AbbreviatedCode === form.catchment)[0]
+                        .Storefronts.filter((c: any) => c.Email === form.centreemail)[0].name
+                }...`
+            )
             setLoading(true)
         }
     })

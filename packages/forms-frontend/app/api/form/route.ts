@@ -11,7 +11,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const json = await req.json()
         console.log(json)
         if (!json.email) throw new Error("Email is required")
-        const existing = await prisma.email.findUnique({
+        const existing = await prisma.email.findFirst({
             where: {
                 email: json.email
             }
