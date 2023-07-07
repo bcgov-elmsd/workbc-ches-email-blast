@@ -65,7 +65,7 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
     try {
         // get email body with recipient's information
         const firstname = recipient.name.split(" ")[0]
-        const catchment = "01-ES"
+        const { catchment } = recipient
         let body = ""
 
         const form = recipient.template.includes("shortform")
