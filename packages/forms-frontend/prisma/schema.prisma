@@ -12,7 +12,7 @@ model Email {
   email     String   
   template  String   @default("")
   status    String   @default("pending")
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
   messageId String   @default("")
   name      String   @default("")
   catchment  String   @default("")
