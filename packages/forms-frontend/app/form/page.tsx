@@ -103,7 +103,14 @@ const Page = () => {
                     <label htmlFor="phone" className="font-weight-bold tw-block">
                         <span>Phone</span>
                         <small className="text-secondary tw-ml-2">555-555-5555 or 5551235555</small>
-                        <input id="phone" className="form-control" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                        <input
+                            id="phone"
+                            className="form-control"
+                            type="tel"
+                            pattern="^(\d{3})?-?(\d{3})-?(\d{4})$"
+                            value={form.phone}
+                            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                        />
                     </label>
                 </div>
 
@@ -116,6 +123,8 @@ const Page = () => {
                         <input
                             id="email"
                             className="form-control"
+                            type="text"
+                            pattern="^[\w\.]+@([\w]+\.)+[\w]{2,}$"
                             required
                             value={form.email}
                             onChange={(e) => setForm({ ...form, email: e.target.value })}
