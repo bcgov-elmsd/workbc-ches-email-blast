@@ -66,18 +66,19 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
         // get email body with recipient's information
         const firstname = recipient.name.split(" ")[0]
         const { catchment } = recipient
+        const uid = encodeURIComponent(recipient.id)
         let body = ""
 
         const form = recipient.template.includes("shortform")
-            ? `${process.env.SHORT_FORM}?uid=${encodeURIComponent(recipient.email)}&title=${encodeURIComponent(
-                  `${recipient.template} redirect`
-              )}&name=${encodeURIComponent(recipient.name)}&email=${encodeURIComponent(recipient.email)}&catchment=${catchment}`
-            : `${process.env.LONG_FORM}?uid=${encodeURIComponent(recipient.email)}&title=${encodeURIComponent(recipient.template)}%20redirect`
+            ? `${process.env.SHORT_FORM}?uid=${uid}&title=${encodeURIComponent(`${recipient.template} redirect`)}&name=${encodeURIComponent(
+                  recipient.name
+              )}&email=${encodeURIComponent(recipient.email)}&catchment=${catchment}`
+            : `${process.env.LONG_FORM}?uid=${uid}&title=${encodeURIComponent(recipient.template)}%20redirect`
 
         if (recipient.template === "2 shortform") {
-            body = email2Template.email2("9", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, form)
+            body = email2Template.email2("9", uid, encodeURIComponent(recipient.template), firstname, form)
         } else {
-            body = email1Template.email1("8", encodeURIComponent(recipient.email), encodeURIComponent(recipient.template), firstname, form)
+            body = email1Template.email1("8", uid, encodeURIComponent(recipient.template), firstname, form)
         }
 
         const req = {
