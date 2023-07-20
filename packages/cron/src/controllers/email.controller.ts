@@ -2,14 +2,15 @@ import emailService from "../services/email.service"
 import commonService from "../services/common.service"
 import cronService from "../services/cron.service"
 
-// Ensure current cron job is complete before starting next one
+// Keep track of when the scheduled task is running
 let inCron = false
 
 /**
- * @description Get and send one email. Meant to be scheduled by a cron job
+ * @description Get and send one email. Task meant to be scheduled by a cron job
  * @returns {Promise<void>}
  */
 const getAndSendEmail = async (): Promise<void> => {
+    // Ensure current task is complete before next one runs
     if (inCron) {
         return
     }
@@ -18,7 +19,7 @@ const getAndSendEmail = async (): Promise<void> => {
     console.log("running every second", new Date().toLocaleString("en-us", { timeZone: "America/Vancouver" }))
     const token = await commonService.getToken()
 
-    // get and send one email
+    // get email and send it (if one exists)
     const recipient = await emailService.getEmailByStatus("pending")
     if (recipient != null) {
         // send email and save msgId
@@ -27,26 +28,26 @@ const getAndSendEmail = async (): Promise<void> => {
         await emailService.setMsgId(recipient.id, messageId)
 
         // check and update email status to "completed", "failed", "cancelled" or "sent"
-        const statusRes = await emailService.getStatus(token, messageId)
-        const status = ["completed", "failed", "cancelled"].includes(statusRes.data.status) ? statusRes.data.status : "sent"
-        const email = await emailService.updateEmail(recipient.id, status)
-        console.log(`initial status of email to ${email.email} is ${status}`)
+        const status = await emailService.getStatus(token, messageId)
+        const updatedStatus = ["completed", "failed", "cancelled"].includes(status) ? status : "sent"
+        const email = await emailService.updateEmail(recipient.id, updatedStatus)
+        console.log(`initial status of email to ${email.email} is ${updatedStatus}`)
     }
 
     // Check and update status of sent emails
     const sentEmail = await emailService.getEmailByStatus("sent")
     if (sentEmail != null) {
         const { messageId } = sentEmail
-        const statusRes = await emailService.getStatus(token, messageId)
-        const stat = statusRes.data.status
-        console.log(`new status of "sent" email to ${sentEmail.email} is ${stat}`)
-        if (stat === "completed" || stat === "failed" || stat === "cancelled") {
-            await emailService.updateEmail(sentEmail.id, stat)
+        const status = await emailService.getStatus(token, messageId)
+
+        console.log(`new status of "sent" email to ${sentEmail.email} is ${status}`)
+        if (["completed", "failed", "cancelled"].includes(status)) {
+            await emailService.updateEmail(sentEmail.id, status)
         }
     }
 
     // End current job and scheduling of future jobs when there are no pending or sent emails
-    // i.e. all emails are completed, failed, or cancelled
+    // all emails will have reached a resolution (completed, failed, or cancelled)
     if (recipient === null && sentEmail === null) {
         console.log("No pending or sent emails. Stopping scheduler")
         cronService.stopJob()

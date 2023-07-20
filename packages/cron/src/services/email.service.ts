@@ -31,7 +31,7 @@ const getAllEmails = async (): Promise<Email[]> =>
 /**
  * @description Update status of an email in the database
  * @param {number} id id of email in database to change
- * @param {string} status New status; One of "pending", "sent" or "completed"
+ * @param {string} status New status; One of "sent," "completed", "cancelled", or "failed"
  * @returns {Promise<Email>} Email with updated status
  */
 const updateEmail = async (id: number, status: string): Promise<Email> =>
@@ -44,8 +44,13 @@ const updateEmail = async (id: number, status: string): Promise<Email> =>
         }
     })
 
-// save messageId in db
-const setMsgId = async (id: number, messageId: string) =>
+/**
+ * @description Save a sent email's msgId to the database
+ * @param {number} id database id of Email to update
+ * @param {string} messageId new messageId; the msgId field from a CHES API response
+ * @returns {Promise<Email>} Email with updated messageId
+ */
+const setMsgId = async (id: number, messageId: string): Promise<Email> =>
     prisma.email.update({
         where: {
             id
@@ -57,30 +62,33 @@ const setMsgId = async (id: number, messageId: string) =>
 
 /**
  * @description Send an email to one recipient
- * @param {string} chesToken Authentication for CHES API
- * @param {Email} recipient Information relating to the email recipient and type of email they receive
+ * @param {string} chesToken Authentication for the CHES API
+ * @param {Email} recipient Information from database to personalize the email with
  * @returns {AxiosResponse} Response from request to the CHES API
  */
 const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResponse> => {
     try {
-        // get email body with recipient's information
+        // fill in the correct email template with recipient's information
         const firstname = recipient.name.split(" ")[0]
         const { catchment } = recipient
         const uid = encodeURIComponent(recipient.id)
         let body = ""
 
+        // form link
         const form = recipient.template.includes("shortform")
             ? `${process.env.SHORT_FORM}?uid=${uid}&title=${encodeURIComponent(`${recipient.template} redirect`)}&name=${encodeURIComponent(
                   recipient.name
               )}&email=${encodeURIComponent(recipient.email)}&catchment=${catchment}`
             : `${process.env.LONG_FORM}?uid=${uid}&title=${encodeURIComponent(recipient.template)}%20redirect`
 
+        // email template
         if (recipient.template === "2 shortform") {
             body = email2Template.email2("9", uid, encodeURIComponent(recipient.template), firstname, form)
         } else {
             body = email1Template.email1("8", uid, encodeURIComponent(recipient.template), firstname, form)
         }
 
+        // make emailing request
         const req = {
             to: [recipient.email],
             encoding: "utf-8",
@@ -90,7 +98,6 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
             from: "brian.d.pham@gov.bc.ca",
             body
         }
-
         const sendEmailResult: AxiosResponse = await chesApi.post("api/v1/email", req, {
             headers: {
                 Authorization: `Bearer ${chesToken}`,
@@ -104,7 +111,13 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
     }
 }
 
-const getStatus = async (chesToken: string, messageId: string) => {
+/**
+ * @description Get the status of a sent email from the CHES API
+ * @param {string} chesToken Authentication for the CHES API
+ * @param {string} messageId messageId of the email to check
+ * @returns {string} email status; One of "sent," "completed", "cancelled", or "failed"
+ */
+const getStatus = async (chesToken: string, messageId: string): Promise<string> => {
     try {
         const status: AxiosResponse = await chesApi.get(`api/v1/status/${messageId}`, {
             headers: {
@@ -112,7 +125,7 @@ const getStatus = async (chesToken: string, messageId: string) => {
                 "Content-Type": "application/json"
             }
         })
-        return status
+        return status.data.status
     } catch (error: any) {
         console.log(JSON.stringify(error.response?.data))
         throw new Error(error.response?.status)

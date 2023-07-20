@@ -1,11 +1,11 @@
 /**
- * @description Fill in the test ("2 shortform") email template with tailored information
+ * @description Fill in the "2 shortform" email template with tailored information
  * @param {string} matomoId ID for use with Matomo analytics
  * @param {string} uid Unique ID of email
  * @param {string} campaign Name of Matomo campaign
  * @param {string} firstname Name of email recipient
  * @param {string} form Link to recipient's form
- * @returns {string} Filled in HTML content of email
+ * @returns {string} Filled in HTML body of email
  * */
 const email2 = (
     matomoId: string,

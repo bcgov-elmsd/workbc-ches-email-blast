@@ -3,10 +3,9 @@ import { authApi } from "../config/common.config"
 
 /**
  * @description get a token for the CHES API
- * @param
- * @returns {token: String}
+ * @returns {Promise<string>} CHES API token
  */
-const getToken = async () => {
+const getToken = async (): Promise<string> => {
     try {
         const authURL = `realms/${process.env.COMMON_SERVICES_AUTH_REALM}/protocol/openid-connect/token`
         const params = new URLSearchParams()
