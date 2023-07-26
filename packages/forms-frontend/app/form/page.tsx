@@ -23,6 +23,11 @@ const Page = () => {
         catchment: searchParams.get("amp;catchment")
     }
 
+    // redirect to home page if no query params are provided
+    if (!catchment) {
+        router.push("/")
+    }
+
     const [form, setForm] = React.useState({
         name: name || "",
         phone: "",
@@ -37,6 +42,7 @@ const Page = () => {
 
     const [loading, setLoading] = React.useState(false)
 
+    // react-query mutation logic for form submission flow
     const mutation = useMutation({
         mutationFn: (newSubmission: any) => axios.post("/api/form", newSubmission),
         onSuccess: () => {
@@ -61,6 +67,11 @@ const Page = () => {
         }
     })
 
+    /**
+     * @description Submit the form
+     * @param e the form event item
+     * @returns {void}
+     */
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (!form.electronicsignature) {

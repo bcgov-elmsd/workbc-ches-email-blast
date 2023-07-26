@@ -5,9 +5,12 @@ import { getToken, sendEmail } from "../../../utils/email"
 import generateHTMLTemplate from "../../../utils/email_templates/shortform"
 
 const prisma = new PrismaClient()
-/*
-    
-*/
+
+/**
+ * @description Endpoint for sending the email to WorkBC centres through CHES
+ * @param {NextRequest} req
+ * @param {NextResponse} res
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
         //  parse the JSON body
