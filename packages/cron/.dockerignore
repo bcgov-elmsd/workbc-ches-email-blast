@@ -3,4 +3,4 @@ dist
 .gitignore
 .env.sample
 jest.config.ts
-tests
+src/tests
