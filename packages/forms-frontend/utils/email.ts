@@ -11,6 +11,10 @@ export const authApi: AxiosInstance = axios.create({
     baseURL: authBaseUrl
 })
 
+/**
+ * @description get a token for the CHES API
+ * @returns {Promise<string>} CHES API token
+ */
 export const getToken = async () => {
     try {
         const authURL = `realms/${process.env.COMMON_SERVICES_AUTH_REALM}/protocol/openid-connect/token`
@@ -34,6 +38,14 @@ export const getToken = async () => {
     }
 }
 
+/**
+ * @description Send an email to one recipient
+ * @param {string} token Authentication for the CHES API
+ * @param {string} body HTML body of the email
+ * @param {string} subject Subject of the email
+ * @param {string[]} to Array of email addresses to send the email to
+ * @returns {AxiosResponse} Response from request to the CHES API
+ */
 export const sendEmail = async (token: string, body: string, subject: string, to: string[]) => {
     try {
         console.log(body)

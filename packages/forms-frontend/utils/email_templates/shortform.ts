@@ -1,3 +1,10 @@
+/**
+ * @description Generate an HTML template for the email
+ * @param {string} title Title of the email
+ * @param {string} centrename Name of the WorkBC Centre
+ * @param {any} form Form data
+ * @returns {AxiosResponse} Response from request to the CHES API
+ */
 const generateHTMLTemplate = (title: string, centrename: string, form: any) => {
     const html = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
