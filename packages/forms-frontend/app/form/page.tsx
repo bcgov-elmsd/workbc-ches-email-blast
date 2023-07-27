@@ -31,7 +31,7 @@ const Page = () => {
         centreemail:
             centres.data.filter((c: any) => c.AbbreviatedCode === catchment)[0].Storefronts.filter((c) => c.id === centre)[0]?.Email ||
             centres.data[0].Storefronts[0].Email,
-        message: "",
+        message: "Hello,\nI would like to apply for WorkBC.",
         electronicsignature: false
     })
 
@@ -88,7 +88,7 @@ const Page = () => {
             <form className="form-group" onSubmit={onSubmit}>
                 <div className="tw-mt-6">
                     <label htmlFor="name" className="font-weight-bold tw-block">
-                        First Name <span className="text-danger">*</span>
+                        Full Name <span className="text-danger">*</span>
                         <input
                             id="name"
                             className="form-control"
@@ -120,15 +120,7 @@ const Page = () => {
                             Email <span className="text-danger">*</span>
                         </span>
                         <small className="text-secondary tw-ml-2">someone@example.com</small>
-                        <input
-                            id="email"
-                            className="form-control"
-                            type="text"
-                            pattern="^[\w\.]+@([\w]+\.)+[\w]{2,}$"
-                            required
-                            value={form.email}
-                            onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        />
+                        <input id="email" className="form-control" type="text" required disabled value={form.email} />
                     </label>
                 </div>
 
