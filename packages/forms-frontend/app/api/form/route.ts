@@ -6,13 +6,21 @@ import generateHTMLTemplate from "../../../utils/email_templates/shortform"
 
 const prisma = new PrismaClient()
 
+/**
+ * @description Endpoint for sending the email to WorkBC centres through CHES
+ * @param {NextRequest} req
+ * @param {NextResponse} res
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
+        //  parse the JSON body
         const json = await req.json()
         console.log(json)
 
+        //  check if phone number is valid
         if (json.phone && !/^(\d{3})?-?(\d{3})-?(\d{4})$/.test(json.phone)) throw new Error("Phone number is not in a valid format")
 
+        //  check if email is valid
         if (!json.email) throw new Error("Email is required")
         const existing = await prisma.email.findFirst({
             where: {
