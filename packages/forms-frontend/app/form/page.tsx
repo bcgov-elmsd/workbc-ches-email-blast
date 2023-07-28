@@ -52,7 +52,11 @@ const Page = () => {
         },
         onError: (e: any) => {
             setLoading(false)
-            toast.error(`Error submitting form: ${e.message}`)
+            let message = e.response.data
+            if (e.response.status === 504) {
+                message = "Too many concurrent users, please try again"
+            }
+            toast.error(`Error submitting form: ${message}`)
         },
         onMutate: (newSubmission: any) => {
             console.log(newSubmission)
