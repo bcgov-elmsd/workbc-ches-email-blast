@@ -17,6 +17,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const json = await req.json()
         console.log(json)
 
+        // check if user submitted a form before
+        const submission = await prisma.submission.findUnique({
+            where: {
+                uid: json.uid
+            }
+        })
+        if (submission) throw new Error("You have already submitted this form")
+
         //  check if phone number is valid
         if (json.phone && !/^(\d{3})?-?(\d{3})-?(\d{4})$/.test(json.phone)) throw new Error("Phone number is not in a valid format")
 
@@ -27,6 +35,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 email: json.email
             }
         })
+
         if (!existing) throw new Error("Email is not part of the trial")
 
         //  send email to centre
@@ -37,6 +46,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         //  on success append a submission record
         const resp = await prisma.submission.create({
             data: {
+                uid: json.uid,
                 email: json.email,
                 action: "Submitted a Short Form"
             }

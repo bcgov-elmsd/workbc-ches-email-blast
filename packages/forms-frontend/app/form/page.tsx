@@ -16,7 +16,8 @@ import centres from "./centres.json"
 const Page = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
-    const { name, centre, email, catchment } = {
+    const { uid, name, centre, email, catchment } = {
+        uid: Number(searchParams.get("uid")),
         name: searchParams.get("amp;name"),
         centre: Number(searchParams.get("amp;centre")) || 1,
         email: searchParams.get("amp;email"),
@@ -29,6 +30,7 @@ const Page = () => {
     }
 
     const [form, setForm] = React.useState({
+        uid,
         name: name || "",
         phone: "",
         email: email || "",
