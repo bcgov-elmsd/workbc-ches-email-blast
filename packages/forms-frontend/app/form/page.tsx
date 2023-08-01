@@ -95,9 +95,6 @@ const Page = () => {
     return (
         <div className="container pt-4">
             <ToastContainer />
-            <p className="tw-text-center tw-text-2xl tw-text-red-600 tw-font-bold">
-                This text is not final. It is a placeholder and can be changed later.
-            </p>
             <h1 className="h1">Contact WorkBC Centre</h1>
             <p>
                 <span className="text-danger font-weight-bold">*</span> Denotes a required field
@@ -105,7 +102,7 @@ const Page = () => {
             <form className="form-group" onSubmit={onSubmit}>
                 <div className="tw-mt-6">
                     <label htmlFor="name" className="font-weight-bold tw-block">
-                        Full Name <span className="text-danger">*</span>
+                        Name <span className="text-danger">*</span>
                         <input
                             id="name"
                             className="form-control"
@@ -208,6 +205,9 @@ const Page = () => {
                     <button type="submit" className="btn btn-primary" style={{ width: "200px", height: "50px" }} disabled={loading}>
                         {loading ? <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" /> : "Submit"}
                     </button>
+                </div>
+                <div className="tw-mt-6 text-center tw-italic">
+                    Once you click &ldquo;Submit,&rdquo; a WorkBC team member will be in touch soon. No further action is required.
                 </div>
             </form>
         </div>
