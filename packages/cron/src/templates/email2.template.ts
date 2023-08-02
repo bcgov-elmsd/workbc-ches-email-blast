@@ -75,9 +75,9 @@ const email2 = (
   </tbody>
 </table>
 <div>
-  <p style="line-height: 24px; font-size: 15px; margin: 0;"><b>Why use WorkBC?</b></p>
-  <ul>
-    <li style=" margin: 10px 0;">
+  <p style="line-height: 24px; font-size: 15px; margin: 0; text-align:center;"><b>Why use WorkBC?</b></p>
+  <ul style="list-style:none; padding:0;">
+    <li>
       <b>Free Services: </b>We offer skills training, career planning, and personalized, one-on-one job counselling.
     </li>
     <li style=" margin: 10px 0;">
@@ -96,7 +96,7 @@ const email2 = (
     <tr>
       <td style="border-spacing: 0px; border-collapse: collapse; line-height: 24px; font-size: 15px; width: 100%; margin: 0;">
         <div>
-          <p style="line-height: 24px; font-size: 15px; margin: 0;"><b>Interested? Click below:</b></p>
+          <p style="line-height: 24px; font-size: 15px; margin: 6px 0 0; text-align:center;"><b>Interested? Click below:</b></p>
 <table class="s-2 w-100" cellpadding="0" cellspacing="0" style="width: 100%;">
   <tbody>
     <tr>
