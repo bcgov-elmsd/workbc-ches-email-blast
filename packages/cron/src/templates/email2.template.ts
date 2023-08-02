@@ -19,8 +19,8 @@ const email2 = (
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
  <!-- Edit the code below this line -->
- <body style="background-color:#fcfeff !important; outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 15px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 0; padding: 0; border: 0;">
-    
+ <body style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 15px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 0; padding: 0; border: 0;">
+
  <!-- Matomo Image Tracker-->
  <img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=${matomoId}&amp;rec=1&amp;uid=${uid}&amp;_rcn=${campaign}&amp;action_name=Email" style="border:0" alt="" />
  <!-- End Matomo -->
@@ -52,7 +52,7 @@ const email2 = (
         <div>          
           <div style="text-align:center; height:120px"><img src="${
               process.env.IMAGES
-          }public-static/workbc/workbc-logo.png" alt="WorkBC Employment Services" style="height:auto; width:250px"></div>
+          }/workbc-temp-files/WorkBCEmploymentServices_V_CMYK_pos.jpg" alt="WorkBC Employment Services" style="height:auto; width:250px"></div>
 
 <p style="line-height: 24px; font-size: 15px; margin: 0;">Dear ${name},</p>
 <table class="s-3 w-100" cellpadding="0" cellspacing="0" style="width: 100%;">
@@ -106,7 +106,7 @@ const email2 = (
   </tbody>
 </table>
 <div style="display: flex">
-  <a href="${form}" style="text-decoration: none; color: white; flex: 45%; align-self: stretch; border-radius: 12px; background-color:#005285">
+  <a href="${form}" style="text-decoration: none; color: white; flex: 45%; align-self: stretch; border-radius: 12px; background-color:#38598a">
     <p style="line-height: 24px; font-size: 15px; margin: 14px 12px 14px 12px;"><b>YES, I want to connect with WorkBC.</b></p>
   </a>
   <b style="align-self: center; flex: 8%; text-align: center; margin: 0px 5px">OR</b>
@@ -140,7 +140,9 @@ const email2 = (
   </tbody>
 </table>
 <div style="text-align:center;">
-  <img src="${process.env.IMAGES}public-static/workbc/bcgov-banner.png" alt="Canada BC Funding Acknowledgement" style="height: auto; width: 250px;">
+  <img src="${
+      process.env.IMAGES
+  }/workbc-temp-files/Canada-BC-Tagline_LockupMark_CMYK_Pos.jpg" alt="Canada BC Funding Acknowledgement" style="height: auto; width: 250px;">
     </div>
   </div>
       </td>
