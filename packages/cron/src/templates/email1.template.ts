@@ -104,7 +104,7 @@ const email1 = (
 </table>
     <div style="display: flex">
     <a href="${form}" style="text-decoration: none; color: white; flex: 45%; align-self: stretch; border-radius: 12px; background-color:#38598a">
-    <p style="line-height: 24px; font-size: 15px; margin: 14px 12px 14px 12px;"><b>YES, I want to connect with WorkBC.</b></p>
+    <p style="line-height: 24px; font-size: 15px; margin: 14px 12px 14px 12px;"><b>YES, I want to connect with WorkBC.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></p>
     </a>
     <div style="flex: 55%; align-self: stretch;">
     </div>
