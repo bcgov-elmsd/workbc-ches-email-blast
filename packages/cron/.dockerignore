@@ -4,3 +4,4 @@ dist
 .env.sample
 jest.config.ts
 src/tests
+src/db/singleton.ts
