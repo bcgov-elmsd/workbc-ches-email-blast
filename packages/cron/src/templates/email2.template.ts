@@ -110,7 +110,7 @@ const email2 = (
     <p style="line-height: 24px; font-size: 15px; margin: 14px 12px 14px 12px;"><b>YES, I want to connect with WorkBC.</b></p>
   </a>
   <b style="align-self: center; flex: 8%; text-align: center; margin: 0px 5px">OR</b>
-  <a href="${`${process.env.REFUSAL_PAGE}?uid=${uid}`}" style="text-decoration: none; color: white; flex: 45%; align-self: stretch; border-radius: 12px; background-color:#ccccc6">
+  <a href="${`${process.env.REFUSAL_PAGE}?uid=${uid}`}" style="text-decoration: none; color: white; flex: 45%; align-self: stretch; border-radius: 12px; background-color:#737373">
     <p style="line-height: 24px; font-size: 15px; margin: 14px 12px 14px 12px;"><b>NO, I don't want to connect with WorkBC today.</b></p>
 </a>
   </div>
