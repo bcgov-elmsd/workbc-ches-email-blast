@@ -1,0 +1,34 @@
+name: Deploy on Test and Prod environments
+
+on:
+  push:
+    branches:
+      - test
+      - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Branch
+      uses: actions/checkout@v3
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      id: extract_branch
+    - name: Authenticate and set context
+      uses: redhat-actions/oc-login@v1  
+      with:
+        # URL to your OpenShift cluster.
+        # Refer to Step 2.
+        openshift_server_url: ${{ secrets.OCP4_SERVER_URL }}
+        # Authentication Token. Can use username and password instead.
+        # Refer to Step 3.
+        openshift_token: ${{ secrets.API_TOKEN_4 }}
+        # Disables SSL cert checking. Use this if you don't have the certificate authority data.
+        insecure_skip_tls_verify: true
+        namespace: ${{ secrets.PROJECT_TOOLS_4 }}
+    - name: Retagging images for deployment on Test
+      run: |
+        oc tag ${{ secrets.PROJECT_TOOLS_4 }}/ches-email-blast-cron:${{ steps.extract_branch.outputs.branch == 'test' && 'latest' || 'test' }} ${{ secrets.PROJECT_TOOLS_4 }}/ches-email-blast-cron:${{ steps.extract_branch.outputs.branch == 'test' && 'test' || 'prod' }}
+        oc tag ${{ secrets.PROJECT_TOOLS_4 }}/ches-email-blast-form:${{ steps.extract_branch.outputs.branch == 'test' && 'latest' || 'test' }} ${{ secrets.PROJECT_TOOLS_4 }}/ches-email-blast-form:${{ steps.extract_branch.outputs.branch == 'test' && 'test' || 'prod' }} 

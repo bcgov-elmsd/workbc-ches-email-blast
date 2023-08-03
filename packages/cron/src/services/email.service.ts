@@ -69,7 +69,6 @@ const setMsgId = async (id: number, messageId: string): Promise<Email> =>
 const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResponse> => {
     try {
         // fill in the correct email template with recipient's information
-        const firstname = recipient.name.split(" ")[0]
         const { catchment } = recipient
         const uid = encodeURIComponent(recipient.id)
         let body = ""
@@ -82,10 +81,10 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
             : `${process.env.LONG_FORM}?uid=${uid}&title=${encodeURIComponent(recipient.template)}%20redirect`
 
         // email template
-        if (recipient.template === "2 shortform") {
-            body = email2Template.email2("9", uid, encodeURIComponent(recipient.template), firstname, form)
+        if (recipient.template.includes("2")) {
+            body = email2Template.email2("9", uid, encodeURIComponent(recipient.template), recipient.name, form)
         } else {
-            body = email1Template.email1("8", uid, encodeURIComponent(recipient.template), firstname, form)
+            body = email1Template.email1("8", uid, encodeURIComponent(recipient.template), recipient.name, form)
         }
 
         // make emailing request
@@ -94,7 +93,7 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
             encoding: "utf-8",
             priority: "normal",
             bodyType: "html", // "html" or "text"
-            subject: `Provincial government employment services (${recipient.template} template)`,
+            subject: `Connect with WorkBC Employment Services (${recipient.template} template)`,
             from: "brian.d.pham@gov.bc.ca",
             body
         }
