@@ -70,7 +70,7 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
     try {
         // fill in the correct email template with recipient's information
         const { catchment } = recipient
-        const uid = encodeURIComponent(recipient.id)
+        const uid = encodeURIComponent(recipient.uid)
         let body = ""
 
         // form link
