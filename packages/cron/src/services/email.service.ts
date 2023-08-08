@@ -70,18 +70,18 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
     try {
         // fill in the correct email template with recipient's information
         const { catchment } = recipient
-        const uid = encodeURIComponent(recipient.id)
+        const uid = encodeURIComponent(recipient.uid)
         let body = ""
 
         // form link
-        const form = recipient.template.includes("shortform")
+        const form = recipient.template.includes("short")
             ? `${process.env.SHORT_FORM}?uid=${uid}&title=${encodeURIComponent(`${recipient.template} redirect`)}&name=${encodeURIComponent(
                   recipient.name
               )}&email=${encodeURIComponent(recipient.email)}&catchment=${catchment}`
             : `${process.env.LONG_FORM}?uid=${uid}&title=${encodeURIComponent(recipient.template)}%20redirect`
 
         // email template
-        if (recipient.template.includes("2")) {
+        if (recipient.template.includes("AC")) {
             body = email2Template.email2("9", uid, encodeURIComponent(recipient.template), recipient.name, form)
         } else {
             body = email1Template.email1("8", uid, encodeURIComponent(recipient.template), recipient.name, form)

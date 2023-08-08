@@ -17,7 +17,7 @@ const Page = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
     const { uid, name, centre, email, catchment } = {
-        uid: Number(searchParams.get("uid")),
+        uid: searchParams.get("uid"),
         name: searchParams.get("amp;name"),
         centre: Number(searchParams.get("amp;centre")) || 1,
         email: searchParams.get("amp;email"),
@@ -61,7 +61,6 @@ const Page = () => {
             toast.error(`Error submitting form: ${message}`)
         },
         onMutate: (newSubmission: any) => {
-            console.log(newSubmission)
             toast.info(
                 `Submitting form to ${
                     centres.data
