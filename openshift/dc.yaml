@@ -26,6 +26,9 @@ objects:
     commonServicesAuthRealm: ${{COMMON_SERVICES_AUTH_REALM}}
     chesHost: ${{CHES_HOST}}
     images: ${{IMAGES}}
+    shortForm: ${{SHORT_FORM}}
+    longForm: ${{LONG_FORM}}
+    refusalPage: ${{REFUSAL_PAGE}}
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -95,6 +98,21 @@ objects:
               secretKeyRef:
                 name: ${NAME}-secrets
                 key: images
+          - name: SHORT_FORM
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: shortForm
+          - name: LONG_FORM
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: longForm
+          - name: REFUSAL_PAGE
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: refusalPage
           livenessProbe:
             failureThreshold: 3
             initialDelaySeconds: 300
@@ -320,4 +338,16 @@ parameters:
 - description: S3 Images URL
   displayName: S3 Images URL
   name: IMAGES
+  value: ""
+- description: Short form
+  displayName: Short form
+  name: SHORT_FORM
+  value: ""
+- description: Long form
+  displayName: Long form
+  name: LONG_FORM
+  value: ""
+- description: Refusal page
+  displayName: Refusal page
+  name: REFUSAL_PAGE
   value: ""

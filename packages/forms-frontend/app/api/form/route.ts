@@ -30,13 +30,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
         //  check if email is valid
         if (!json.email) throw new Error("Email is required")
+
+        // check if user is allowed to submit a form
         const existing = await prisma.email.findFirst({
             where: {
-                email: json.email
+                uid: json.uid
             }
         })
-
-        if (!existing) throw new Error("Email is not part of the trial")
+        if (!existing || !existing.template.includes("short")) throw new Error("Email is not part of the trial")
 
         //  send email to centre
         const token = await getToken()
