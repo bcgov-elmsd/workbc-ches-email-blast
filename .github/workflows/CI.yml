@@ -28,7 +28,7 @@ jobs:
   test:
     strategy:
       matrix:
-        dir: [./packages/cron,./packages/cron]
+        dir: [./packages/cron,./packages/forms-frontend]
     name: Test application
     runs-on: ubuntu-latest
     timeout-minutes: 10
