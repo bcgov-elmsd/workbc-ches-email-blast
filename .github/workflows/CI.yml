@@ -39,6 +39,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.19.0'
+      - name: Install Monorepo Dependancies
+        run: npm install
       - name: Install Dependancies
         working-directory: ${{ matrix.dir }}
         run: npm install
