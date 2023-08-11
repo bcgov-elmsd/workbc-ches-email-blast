@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { useMutation } from "react-query"
 import { ToastContainer, toast } from "react-toastify"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -52,22 +52,16 @@ const Page = () => {
             // toast.success("Form submitted successfully")
             router.push("/form/success")
         },
-        onError: (e: any) => {
+        onError: (e: { response: AxiosResponse }) => {
             setLoading(false)
             let message = e.response.data
             if (e.response.status === 504) {
-                message = "Too many concurrent users, please try again"
+                message = "Too many concurrent submissions, please try again"
             }
-            toast.error(`Error submitting form: ${message}`)
+            toast.error(`Error submitting form: ${message}`, { autoClose: 10000 })
         },
-        onMutate: (newSubmission: any) => {
-            toast.info(
-                `Submitting form to ${
-                    centres.data
-                        .filter((c: any) => c.AbbreviatedCode === form.catchment)[0]
-                        .Storefronts.filter((c: any) => c.Email === form.centreemail)[0].name
-                }...`
-            )
+        onMutate: () => {
+            toast.info(`Submitting responses to WorkBC...`)
             setLoading(true)
         }
     })
@@ -121,6 +115,7 @@ const Page = () => {
                             className="form-control"
                             type="tel"
                             pattern="^(\d{3})?-?(\d{3})-?(\d{4})$"
+                            minLength={9}
                             value={form.phone}
                             onChange={(e) => setForm({ ...form, phone: e.target.value })}
                         />
