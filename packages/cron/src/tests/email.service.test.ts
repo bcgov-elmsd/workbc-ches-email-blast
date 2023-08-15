@@ -4,6 +4,7 @@ import { chesApi } from "../config/common.config"
 
 const email1 = {
     id: 1,
+    uid: "72z9cri0dy",
     email: "hello@example.net",
     template: "1 longform",
     status: "completed",
@@ -15,6 +16,7 @@ const email1 = {
 
 const email2 = {
     id: 2,
+    uid: "ip31cwmn8c",
     email: "someone@example.com",
     template: "1 shortform",
     status: "pending",
@@ -26,6 +28,7 @@ const email2 = {
 
 let email3 = {
     id: 3,
+    uid: "15eqyowks4",
     email: "testing@example.org",
     template: "2 shortform",
     status: "pending",
@@ -37,6 +40,7 @@ let email3 = {
 
 const updatedEmail3 = {
     id: 3,
+    uid: "15eqyowks4",
     email: "testing@example.org",
     template: "2 shortform",
     status: "sent",
@@ -99,6 +103,7 @@ describe("updateEmail", () => {
     afterAll(() => {
         email3 = {
             id: 3,
+            uid: "15eqyowks4",
             email: "testing@example.org",
             template: "2 shortform",
             status: "pending",
