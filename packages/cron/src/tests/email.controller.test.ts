@@ -9,6 +9,7 @@ jest.mock("../services/email.service", () => ({
         .fn()
         .mockResolvedValueOnce({
             id: 2,
+            uid: "ip31cwmn8c",
             email: "someone@example.com",
             template: "1 shortform",
             status: "pending",
@@ -19,6 +20,7 @@ jest.mock("../services/email.service", () => ({
         })
         .mockResolvedValueOnce({
             id: 2,
+            uid: "ip31cwmn8c",
             email: "someone@example.com",
             template: "1 shortform",
             status: "sent",
@@ -36,6 +38,7 @@ jest.mock("../services/email.service", () => ({
     getStatus: jest.fn().mockResolvedValueOnce("sent").mockResolvedValueOnce("completed"),
     updateEmail: jest.fn().mockResolvedValue({
         id: 2,
+        uid: "ip31cwmn8c",
         email: "someone@example.com",
         template: "1 shortform",
         status: "sent",
@@ -62,6 +65,7 @@ describe("getAndSendEmail", () => {
         // Send email
         expect(emailService.sendEmail).toHaveBeenCalledWith("token", {
             id: 2,
+            uid: "ip31cwmn8c",
             email: "someone@example.com",
             template: "1 shortform",
             status: "pending",
