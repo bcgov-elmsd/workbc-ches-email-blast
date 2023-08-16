@@ -12,8 +12,8 @@ const page = () => (
             <div className="col-md-12">
                 <div className="card tw-border-[#e3a82b] tw-border-2  col-md-6 offset-md-3 text-center mt-5">
                     <div className="card-body">
-                        <h3 className="card-title tw-text-3xl">Thank you!</h3>
-                        <p className="card-text">PLACEHOLDER FOR REFUSAL PAGE</p>
+                        <h3 className="card-title tw-text-3xl">Thank you for letting us know!</h3>
+                        <p className="card-text">You may now close this tab.</p>
                     </div>
                 </div>
             </div>
