@@ -44,6 +44,9 @@ jobs:
       - name: Install Dependancies
         working-directory: ${{ matrix.dir }}
         run: npm install
+      - name: Generate Prisma Client
+        working-directory: ${{ matrix.dir }}
+        run: npx prisma generate
       - name: Run Unit Tests
         working-directory: ${{ matrix.dir }}
         run: npm run test
