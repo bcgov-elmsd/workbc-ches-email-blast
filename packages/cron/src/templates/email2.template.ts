@@ -91,10 +91,10 @@ const email2 = (
 <div>
 <p style="line-height: 24px; font-size: 15px; margin: 0; text-align:center;"><b>Why use WorkBC?</b></p>
 <ul style="list-style:none; padding:0;">
-  <li>
+  <li style=" margin:0;">
     <b>Free Services: </b>We offer skills training, career planning, and personalized, one-on-one job counselling.
   </li>
-  <li style=" margin: 10px 0;">
+  <li style=" margin:10px 0;">
     <b>Benefits: </b>You may be eligible for financial support for things like transportation, tools, and other supplies.
   </li>
 </ul>
@@ -131,10 +131,10 @@ const email2 = (
             <center>
             <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:76px;v-text-anchor:middle;width:250px;" arcsize="16%" stroke="false" fillcolor="#38598A">
             <w:anchorlock/>
-            <center style="">
+            <center style="text-align:left;">
           <![endif]-->  
           <a width="250" height="76" href="${form}" style="text-decoration-thickness:3px; text-decoration-color:#38598a; color: white; display:block; padding: 14px 12px 14px 12px;">
-            <b align="left">YES, I want to connect with WorkBC.</b>
+            <b>YES, I want to connect with WorkBC.</b>
           </a>
           <!--[if mso]>
             </center>
@@ -153,10 +153,10 @@ const email2 = (
               <center>
               <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:76px;v-text-anchor:middle;width:250px;" arcsize="16%" stroke="false" fillcolor="#737373">
               <w:anchorlock/>
-              <center style="">
+              <center style="text-align:left;">
               <![endif]-->
               <a width="250" height="76" href="${`${process.env.REFUSAL_PAGE}?uid=${uid}`}" style="text-decoration-thickness:3px; text-decoration-color:#737373; color: white; display:block; padding: 14px 12px 14px 12px;">
-                <b align="left">NO, I don't want to connect with WorkBC today.</b>
+                <b>NO, I don't want to connect with WorkBC today.</b>
               </a>
               <!--[if mso]>
                 </center>
