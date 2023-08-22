@@ -198,7 +198,7 @@ const email2 = (
       <td style="text-align:center;">
         <img src="${
             process.env.IMAGES
-        }/workbc-temp-files/Canada-BC-Tagline_LockupMark_CMYK_Pos.jpg" alt="WorkBC Employment Services" width="250" style="max-height:90px; max-width:250px; Margin:auto;">
+        }/workbc-temp-files/Canada-BC-Tagline_LockupMark_CMYK_Pos.jpg" alt="Canada BC Funding Acknowledgement" width="250" style="max-height:90px; max-width:250px; Margin:auto;">
       </td>
       </tr>
     </tbody>
