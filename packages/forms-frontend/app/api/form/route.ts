@@ -37,7 +37,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 uid: json.uid
             }
         })
-        if (!existing || !existing.template.includes("short")) throw new Error("Email is not part of the trial")
+        if (!existing || !existing.template.includes("short")) throw new Error("You are not eligible to submit a form")
+
+        // ensure email and catchment are unchanged
+        if (existing.email !== json.email) throw new Error("Email is not part of the trial")
+        if (existing.catchment !== json.catchment) throw new Error(`${json.catchment} is not your catchment`)
 
         //  send email to centre
         const token = await getToken()

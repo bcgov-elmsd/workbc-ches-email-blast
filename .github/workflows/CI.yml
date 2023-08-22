@@ -1,0 +1,52 @@
+name: CI for tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+  workflow_call:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        dir: [./packages/cron,./packages/forms-frontend]
+    name: Test application
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "checkout repository"
+        uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.19.0'
+      - name: Install Monorepo Dependancies
+        run: npm install
+      - name: Install Dependancies
+        working-directory: ${{ matrix.dir }}
+        run: npm install
+      - name: Generate Prisma Client
+        working-directory: ${{ matrix.dir }}
+        run: npx prisma generate
+      - name: Run Unit Tests
+        working-directory: ${{ matrix.dir }}
+        run: npm run test
