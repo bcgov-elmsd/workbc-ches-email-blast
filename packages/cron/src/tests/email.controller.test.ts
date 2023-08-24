@@ -15,6 +15,7 @@ jest.mock("../services/email.service", () => ({
             status: "pending",
             name: "Bob Jones",
             messageId: "",
+            messageCreatedAt: null,
             catchment: "31-ES",
             createdAt: "2023-07-26T16:35:17.391Z"
         })
@@ -26,6 +27,7 @@ jest.mock("../services/email.service", () => ({
             status: "sent",
             name: "Bob Jones",
             messageId: "abc-123456",
+            messageCreatedAt: null,
             catchment: "31-ES",
             createdAt: "2023-07-26T16:35:17.391Z"
         })
@@ -44,6 +46,7 @@ jest.mock("../services/email.service", () => ({
         status: "sent",
         name: "Bob Jones",
         messageId: "abc-123456",
+        messageCreatedAt: null,
         catchment: "31-ES",
         createdAt: "2023-07-26T16:35:17.391Z"
     })
@@ -71,6 +74,7 @@ describe("getAndSendEmail", () => {
             status: "pending",
             name: "Bob Jones",
             messageId: "",
+            messageCreatedAt: null,
             catchment: "31-ES",
             createdAt: "2023-07-26T16:35:17.391Z"
         })
