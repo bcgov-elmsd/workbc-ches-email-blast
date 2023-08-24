@@ -40,7 +40,8 @@ const updateEmail = async (id: number, status: string): Promise<Email> =>
             id
         },
         data: {
-            status
+            status,
+            messageCreatedAt: new Date()
         }
     })
 

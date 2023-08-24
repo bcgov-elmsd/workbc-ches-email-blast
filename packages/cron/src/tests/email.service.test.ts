@@ -2,7 +2,18 @@ import emailService from "../services/email.service"
 import prismaMock from "../db/singleton"
 import { chesApi } from "../config/common.config"
 
-const email1 = {
+const email1: {
+    id: number
+    uid: string
+    email: string
+    template: string
+    status: string
+    name: string
+    messageId: string
+    messageCreatedAt: Date | null
+    catchment: string
+    createdAt: Date
+} = {
     id: 1,
     uid: "72z9cri0dy",
     email: "hello@example.net",
@@ -10,11 +21,23 @@ const email1 = {
     status: "completed",
     name: "Trista Dhami",
     messageId: "qwe-234567",
+    messageCreatedAt: null,
     catchment: "01-ES",
     createdAt: new Date()
 }
 
-const email2 = {
+const email2: {
+    id: number
+    uid: string
+    email: string
+    template: string
+    status: string
+    name: string
+    messageId: string
+    messageCreatedAt: Date | null
+    catchment: string
+    createdAt: Date
+} = {
     id: 2,
     uid: "ip31cwmn8c",
     email: "someone@example.com",
@@ -22,11 +45,24 @@ const email2 = {
     status: "pending",
     name: "Bob Jones",
     messageId: "",
+    messageCreatedAt: null,
     catchment: "31-ES",
     createdAt: new Date()
 }
 
-let email3 = {
+let email3: {
+    id: number
+    uid: string
+    email: string
+    template: string
+
+    status: string
+    name: string
+    messageId: string
+    messageCreatedAt: Date | null
+    catchment: string
+    createdAt: Date
+} = {
     id: 3,
     uid: "15eqyowks4",
     email: "testing@example.org",
@@ -34,6 +70,7 @@ let email3 = {
     status: "pending",
     name: "Brian Pham",
     messageId: "",
+    messageCreatedAt: null,
     catchment: "02-ES",
     createdAt: new Date()
 }
@@ -46,6 +83,7 @@ const updatedEmail3 = {
     status: "sent",
     name: "Brian Pham",
     messageId: "xyz-456789",
+    messageCreatedAt: new Date(),
     catchment: "02-ES",
     createdAt: new Date()
 }
@@ -92,7 +130,8 @@ describe("updateEmail", () => {
                 id: 3
             },
             data: {
-                status: "sent"
+                status: "sent",
+                messageCreatedAt: new Date()
             }
         })
         expect(email3.id).toEqual(3)
@@ -109,6 +148,7 @@ describe("updateEmail", () => {
             status: "pending",
             name: "Brian Pham",
             messageId: "",
+            messageCreatedAt: null,
             catchment: "02-ES",
             createdAt: new Date()
         }

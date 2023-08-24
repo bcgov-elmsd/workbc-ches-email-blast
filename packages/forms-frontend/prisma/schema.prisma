@@ -8,15 +8,16 @@ datasource db {
 }
 
 model Email {
-  id        Int      @id @default(autoincrement())
-  uid       String   @unique
-  email     String
-  template  String   @default("")
-  status    String   @default("pending")
-  createdAt DateTime @default(now()) @db.Timestamptz(3)
-  messageId String   @default("")
-  name      String   @default("")
-  catchment String   @default("")
+  id               Int       @id @default(autoincrement())
+  uid              String    @unique
+  email            String
+  template         String    @default("")
+  status           String    @default("pending")
+  createdAt        DateTime  @default(now()) @db.Timestamptz(3)
+  messageId        String    @default("")
+  name             String    @default("")
+  catchment        String    @default("")
+  messageCreatedAt DateTime? @db.Timestamptz(3)
 }
 
 model Submission {
