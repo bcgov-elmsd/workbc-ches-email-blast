@@ -15,6 +15,7 @@ model Email {
   status    String   @default("pending")
   createdAt DateTime @default(now()) @db.Timestamptz(3)
   messageId String   @default("")
+  messageCreatedAt DateTime? @db.Timestamptz(3)
   name      String   @default("")
   catchment String   @default("")
 }
