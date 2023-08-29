@@ -1,0 +1,353 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  creationTimestamp: null
+  name: ches-email-blast
+labels:
+  template: ches-email-blast
+objects:
+- apiVersion: v1
+  kind: Secret
+  type: Opaque
+  metadata:
+    name: ${NAME}-db-secrets
+  stringData:
+    databaseUrl: ${{DATABASE_URL}}
+- apiVersion: v1
+  kind: Secret
+  type: Opaque
+  metadata:
+    name: ${NAME}-secrets
+  stringData:
+    staticUrl: ${{STATIC_URL}}
+    keycloakServerUrl: ${{AUTH_KEYCLOAK_SERVER_URL}}
+    commonServicesClient: ${{COMMON_SERVICES_CLIENT}}
+    commonServicesSecret: ${{COMMON_SERVICES_CLIENT_SECRET}}
+    commonServicesAuthRealm: ${{COMMON_SERVICES_AUTH_REALM}}
+    chesHost: ${{CHES_HOST}}
+    images: ${{IMAGES}}
+    shortForm: ${{SHORT_FORM}}
+    longForm: ${{LONG_FORM}}
+    refusalPage: ${{REFUSAL_PAGE}}
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}-cron
+    labels:
+      app.kubernetes.io/part-of: ${NAME}
+      app.openshift.io/runtime: nodejs
+      deploymentconfig: ${NAME}-cron
+  spec:
+    replicas: ${{REPLICAS}}
+    selector:
+      deploymentconfig: ${NAME}-cron
+    strategy:
+      resources:
+        limits:
+          cpu: 20m
+          memory: 80Mi
+        requests:
+          cpu: 10m
+          memory: 65Mi
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          deploymentconfig: ${NAME}-cron
+      spec:
+        containers:
+        - env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-db-secrets
+                key: databaseUrl
+          - name: STATIC_URL
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: staticUrl
+          - name: AUTH_KEYCLOAK_SERVER_URL
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: keycloakServerUrl
+          - name: COMMON_SERVICES_CLIENT
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: commonServicesClient
+          - name: COMMON_SERVICES_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: commonServicesSecret
+          - name: COMMON_SERVICES_AUTH_REALM
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: commonServicesAuthRealm
+          - name: CHES_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: chesHost
+          - name: IMAGES
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: images
+          - name: SHORT_FORM
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: shortForm
+          - name: LONG_FORM
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: longForm
+          - name: REFUSAL_PAGE
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: refusalPage
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8002
+            timeoutSeconds: 1
+          name: ${NAME}-cron
+          ports:
+          - containerPort: 8002
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 300
+            periodSeconds: 120
+            successThreshold: 1
+            tcpSocket:
+              port: 8002
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 20m
+              memory: 80Mi
+            requests:
+              cpu: 10m
+              memory: 65Mi
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${NAME}-cron
+        from:
+          kind: ImageStreamTag
+          name: ${NAME}-cron:${TAG}
+          namespace: ${IMAGE_NAMESPACE}
+      type: ImageChange
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}-form
+    labels:
+      app.kubernetes.io/part-of: ${NAME}
+      app.openshift.io/runtime: nodejs
+      deploymentconfig: ${NAME}-form
+  spec:
+    replicas: ${{REPLICAS}}
+    selector:
+      deploymentconfig: ${NAME}-form
+    strategy:
+      resources:
+        limits:
+          cpu: 20m
+          memory: 80Mi
+        requests:
+          cpu: 10m
+          memory: 65Mi
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          deploymentconfig: ${NAME}-form
+      spec:
+        containers:
+        - env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-db-secrets
+                key: databaseUrl
+          - name: STATIC_URL
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: staticUrl
+          - name: AUTH_KEYCLOAK_SERVER_URL
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: keycloakServerUrl
+          - name: COMMON_SERVICES_CLIENT
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: commonServicesClient
+          - name: COMMON_SERVICES_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: commonServicesSecret
+          - name: COMMON_SERVICES_AUTH_REALM
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: commonServicesAuthRealm
+          - name: CHES_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: chesHost
+          - name: IMAGES
+            valueFrom:
+              secretKeyRef:
+                name: ${NAME}-secrets
+                key: images
+          image: ${NAME}-form:${TAG}
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          name: ${NAME}-form
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 300
+            periodSeconds: 120
+            successThreshold: 1
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 20m
+              memory: 80Mi
+            requests:
+              cpu: 10m
+              memory: 65Mi
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${NAME}-form
+        from:
+          kind: ImageStreamTag
+          name: ${NAME}-form:${TAG}
+          namespace: ${IMAGE_NAMESPACE}
+      type: ImageChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}-cron
+  spec:
+    ports:
+    - name: ${NAME}-cron
+      port: 8002
+      protocol: TCP
+      targetPort: 8002
+    selector:
+      deploymentconfig: ${NAME}-cron
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    name: ${NAME}-form
+  spec:
+    ports:
+    - name: ${NAME}-form
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      deploymentconfig: ${NAME}-form
+parameters:
+- description: A name used for all objects
+  displayName: Name
+  name: NAME
+  required: true
+  value: ches-email-blast
+- description: The number of replicas to create
+  displayName: Replicas
+  name: REPLICAS
+  required: true
+  value: "1"
+- description: Tag used for the image tags
+  displayName: tag
+  name: TAG
+  required: true
+  value: latest
+- description: Image namespace
+  displayName: Image namespace
+  name: IMAGE_NAMESPACE
+  value: ""
+- description: DB connection string
+  displayName: DB connection string
+  name: DATABASE_URL
+  value: ""
+- description: Static S3 URL
+  displayName: Static S3 URL
+  name: STATIC_URL
+  value: ""
+- description: Keycloak auth Server URL
+  displayName: Keycloak auth Server URL
+  name: AUTH_KEYCLOAK_SERVER_URL
+  value: ""
+- description: Common services client ID
+  displayName: Common services client ID
+  name: COMMON_SERVICES_CLIENT
+  value: ""
+- description: Common services client secret
+  displayName: Common services client secret
+  name: COMMON_SERVICES_CLIENT_SECRET
+  value: ""
+- description: Common Services Auth Realm
+  displayName: Common Services Auth Realm
+  name: COMMON_SERVICES_AUTH_REALM
+  value: ""
+- description: CHES Host
+  displayName: CHES Host
+  name: CHES_HOST
+  value: ""
+- description: S3 Images URL
+  displayName: S3 Images URL
+  name: IMAGES
+  value: ""
+- description: Short form
+  displayName: Short form
+  name: SHORT_FORM
+  value: ""
+- description: Long form
+  displayName: Long form
+  name: LONG_FORM
+  value: ""
+- description: Refusal page
+  displayName: Refusal page
+  name: REFUSAL_PAGE
+  value: ""

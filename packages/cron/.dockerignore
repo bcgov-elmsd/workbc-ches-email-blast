@@ -1,0 +1,7 @@
+node_modules
+dist
+.gitignore
+.env.sample
+jest.config.ts
+src/tests
+src/db/singleton.ts
