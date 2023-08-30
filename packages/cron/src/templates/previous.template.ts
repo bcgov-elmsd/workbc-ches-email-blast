@@ -154,6 +154,15 @@ const previousEmail = (
     </tr>
   </tbody>
 </table>
+<table class="s-3 w-100" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tbody>
+      <tr>
+        <td height="16" style="border-spacing: 0px; border-collapse: collapse; line-height: 16px; font-size: 16px; width: 100%; height: 16px; margin: 0;">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+    You can also download the <a href="https://mobile.es.workbc.ca/">WorkBC app</a> today — it only takes a couple of minutes as you already have a WorkBC account.
     </div>
     </td>
   </tr>
