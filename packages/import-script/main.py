@@ -5,12 +5,12 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-TREAMENT = 2
-CATCHMENT = 6
-FIRST_NAME = 7
-LAST_NAME = 8
-EMAIL = 9
-UID = 0
+CONDITION = 9
+CATCHMENT = 4
+FIRST_NAME = 5
+LAST_NAME = 6
+EMAIL = 7
+UID = 8
 
 def connect():
 	conn = psycopg2.connect(host=os.getenv("DB_HOST"),database=os.getenv("DB_NAME"),port=os.getenv("DB_PORT"),user=os.getenv("DB_USER"),password=os.getenv("DB_PASSWORD"))
@@ -20,7 +20,7 @@ def connect():
 		reader = csv.reader(f)
 		next(reader)
 		for row in reader:
-			cur.execute('INSERT INTO "Email" VALUES (default, %s ,%s, %s, default, default, default, %s, %s)', (row[UID],row[EMAIL], row[TREAMENT],row[FIRST_NAME]+" "+row[LAST_NAME],row[CATCHMENT].split()[0]))
+			cur.execute('INSERT INTO "Email" VALUES (default, %s ,%s, %s, default, default, default, %s, %s)', (row[UID],row[EMAIL], row[CONDITION],row[FIRST_NAME]+" "+row[LAST_NAME],row[CATCHMENT].split()[0]))
 	conn.commit()
 	conn.close()
 	print('Database connection closed.')
