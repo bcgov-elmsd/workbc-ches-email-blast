@@ -5,7 +5,7 @@ import { chesApi } from "../config/common.config"
 import email1Template from "../templates/email1.template"
 import email2Template from "../templates/email2.template"
 import previousTemplate from "../templates/previous.template"
-import reminderTemplate from "../templates/reminder.template"
+// import reminderTemplate from "../templates/reminder.template"
 
 /**
  * @description Get an email with specified status
@@ -93,16 +93,19 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
                 break
             case "Standard short":
             case "Standard long":
+            case "Control":
                 body = email1Template.email1("8", uid, matomoTitle, recipient.name, form)
                 break
             case "Past WorkBC Client Email":
                 subject = "Reconnect with WorkBC Employment Services"
                 body = previousTemplate.previousEmail("12", uid, matomoTitle, recipient.name, form)
                 break
-            case "Reminder":
+
+            // temporary placeholder until we receive finalized reminder email
+            /* case "Reminder":
                 subject = "Reminder to Connect with WorkBC Employment Services"
                 body = reminderTemplate.reminderEmail("11", uid, matomoTitle, recipient.name, form)
-                break
+                break */
             default:
                 throw new Error("Email type is not recognized")
         }
@@ -113,7 +116,7 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
             encoding: "utf-8",
             priority: "normal",
             bodyType: "html", // "html" or "text"
-            subject: `${subject} (${recipient.template} template)`,
+            subject: `${subject}`,
             from: "WorkBC No-Reply <workbc-noreply@gov.bc.ca>",
             body
         }
