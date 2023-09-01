@@ -12,6 +12,9 @@ const reminderEmail = (matomoId: string, uid: string, campaign: string, name: st
 <head>
 </head>
 <body>
+<!-- Matomo Image Tracker-->
+<img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=${matomoId}&amp;rec=1&amp;uid=${uid}&amp;_rcn=${campaign}&amp;action_name=Email" style="border:0" alt="" />
+<!-- End Matomo -->
 <div>
   <h1>Reminder Email</h1>
   <p>to be finalized</p>
