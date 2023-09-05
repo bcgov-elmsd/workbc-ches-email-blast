@@ -162,7 +162,7 @@ const previousEmail = (
       </tr>
     </tbody>
   </table>
-    You can also download the <a href="https://mobile.es.workbc.ca/">WorkBC app</a> today — it only takes a couple of minutes as you already have a WorkBC account.
+    You can also download the <a href="${process.env.WORKBC_APP}?uid=${uid}&title=WorkBC%20app%20redirect">WorkBC app</a> today — it only takes a couple of minutes as you already have a WorkBC account.
     </div>
     </td>
   </tr>
