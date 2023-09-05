@@ -5,12 +5,12 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-CONDITION = 9
+CONDITION = 10
 CATCHMENT = 4
 FIRST_NAME = 5
 LAST_NAME = 6
 EMAIL = 7
-UID = 8
+UID = 9
 
 def connect():
 	conn = psycopg2.connect(host=os.getenv("DB_HOST"),database=os.getenv("DB_NAME"),port=os.getenv("DB_PORT"),user=os.getenv("DB_USER"),password=os.getenv("DB_PASSWORD"))

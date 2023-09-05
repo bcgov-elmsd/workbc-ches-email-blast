@@ -31,15 +31,17 @@ See ```sample.csv``` for an example of a correctly formatted csv file
 1. **GENDER**
 2. **BIRTH_YEAR**
 3. **EDUCATION**, the highest level of education
-4. **CATCHMENT**, the client's WorkBC catchment (excluding catchment )
+4. **CATCHMENT**, the client's WorkBC catchment (excluding catchment 21 - Surrey Newton)
 5. **FIRST_NAME**
 6. **LAST_NAME**
 7. **EMAIL_ADDR**, the client's email address
-8. **UID**, a randomly generated, 15-character alphanumberic string ending in "uid". Used for identification in Matomo
-9. **condition**, the client's randomly assigned treatment group for the trial which specifies the type of email and form to send them.
+8. **WORKBC_PAST**, 1 if they have been a WorkBC client previously, 0 otherwise
+9. **UID**, a randomly generated, 15-character alphanumberic string ending in "uid". Used for identification in Matomo
+10. **condition**, the client's randomly assigned treatment group for the trial which specifies the type of email and form to send them.
     - Standard long
     - Standard short
     - AC long
     - AC short
     - Past WorkBC Client Email
     - Control
+11. **Email_Order**, a number indicating when in the sequence to send the email
