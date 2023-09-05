@@ -35,7 +35,7 @@ See ```sample.csv``` for an example of a correctly formatted csv file
 5. **FIRST_NAME**
 6. **LAST_NAME**
 7. **EMAIL_ADDR**, the client's email address
-8. **WORKBC_PAST**, 1 if they have been a WorkBC client previously, 0 otherwise
+8. **WORKBC_INVOLVEMENT**, the client's previous history with WorkBC
 9. **UID**, a randomly generated, 15-character alphanumberic string ending in "uid". Used for identification in Matomo
 10. **condition**, the client's randomly assigned treatment group for the trial which specifies the type of email and form to send them.
     - Standard long
@@ -44,4 +44,3 @@ See ```sample.csv``` for an example of a correctly formatted csv file
     - AC short
     - Past WorkBC Client Email
     - Control
-11. **Email_Order**, a number indicating when in the sequence to send the email

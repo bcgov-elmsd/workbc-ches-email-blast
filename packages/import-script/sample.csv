@@ -1,6 +1,6 @@
-ID,GENDER,BIRTH_YEAR,EDUCATION_TYPE_NAME,CATCHMENT,FIRST_NAME,LAST_NAME,EMAIL_ADDR,WORKBC_PAST,UID,condition,Email_Order
-307915,Woman/Girl,2003,University,01-ES VANCOUVER ISLAND NORTH,Trista,Dhami,trista@example.net,0,9u2afq1po512uid,Standard long,1
-227833,Man/Boy,1948,Other,34-ES SHUSWAP - COLUMBIA,Brian,Pham,brian@example.org,0,qmylapp5f912uid,Standard short,2
-184984,Man/boy,1982,College,31-ES KAMLOOPS - THOMPSON,Anakin,Skywalker,skywalker@example.com,0,sac1ajr8p612uid,AC long,3
-220591,Man/Boy,1957,Apprenticeship,17-ES TRI-CITIES,Peter,Parker,spiderman15@example.org,0,78cchyz30312uid,AC short,4
-811226,Woman/Girl,1994,Elementary,29-ES CARIBOO,Lara,Croft,laracroft@example.com,1,mcmdgwy3a812uid,Past WorkBC Client Email,5
+ID,GENDER,BIRTH_YEAR,EDUCATION_TYPE_NAME,CATCHMENT,FIRST_NAME,LAST_NAME,EMAIL_ADDR,WORKBC_INVOLVEMENT,UID,condition
+307915,Woman/Girl,2003,University,01-ES VANCOUVER ISLAND NORTH,Trista,Dhami,trista@example.net,Not Applicable,9u2afq1po512uid,Standard long
+227833,Man/Boy,1948,Other,34-ES SHUSWAP - COLUMBIA,Brian,Pham,brian@example.org,Not Applicable,qmylapp5f912uid,Standard short
+184984,Man/boy,1982,College,31-ES KAMLOOPS - THOMPSON,Anakin,Skywalker,skywalker@example.com,Not Applicable,sac1ajr8p612uid,AC long
+220591,Man/Boy,1957,Apprenticeship,17-ES TRI-CITIES,Peter,Parker,spiderman15@example.org,Not Applicable,78cchyz30312uid,AC short
+811226,Woman/Girl,1994,Elementary,29-ES CARIBOO,Lara,Croft,laracroft@example.com,Application Post WorkBC Service,mcmdgwy3a812uid,Past WorkBC Client Email
