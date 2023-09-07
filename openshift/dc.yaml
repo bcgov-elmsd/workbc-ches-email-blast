@@ -55,6 +55,7 @@ objects:
         creationTimestamp: null
         labels:
           deploymentconfig: ${NAME}-cron
+          route-ingress: 'true'
       spec:
         containers:
         - env:
@@ -178,6 +179,7 @@ objects:
         creationTimestamp: null
         labels:
           deploymentconfig: ${NAME}-form
+          route-ingress: 'true'
       spec:
         containers:
         - env:
