@@ -1,10 +1,8 @@
 /* eslint-disable import/prefer-default-export */
-import { PrismaClient } from "@prisma/client"
 import { NextRequest, NextResponse } from "next/server"
 import { getToken, sendEmail } from "../../../utils/email"
 import generateHTMLTemplate from "../../../utils/email_templates/shortform"
-
-const prisma = new PrismaClient()
+import prisma from "../../../utils/client"
 
 /**
  * @description Endpoint for sending the email to WorkBC centres through CHES
@@ -15,7 +13,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     try {
         //  parse the JSON body
         const json = await req.json()
-        console.log(json)
 
         // check if user submitted a form before
         const submission = await prisma.submission.findUnique({

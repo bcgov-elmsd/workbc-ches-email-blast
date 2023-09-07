@@ -95,7 +95,7 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
             priority: "normal",
             bodyType: "html", // "html" or "text"
             subject: `Connect with WorkBC Employment Services (${recipient.template} template)`,
-            from: "sdpr.elmsdtechnical@gov.bc.ca",
+            from: "WorkBC No-Reply <workbc-noreply@gov.bc.ca>",
             body
         }
         const sendEmailResult: AxiosResponse = await chesApi.post("api/v1/email", req, {
