@@ -4,6 +4,8 @@ import prisma from "../db/config"
 import { chesApi } from "../config/common.config"
 import email1Template from "../templates/email1.template"
 import email2Template from "../templates/email2.template"
+import previousTemplate from "../templates/previous.template"
+// import reminderTemplate from "../templates/reminder.template"
 
 /**
  * @description Get an email with specified status
@@ -72,20 +74,40 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
         // fill in the correct email template with recipient's information
         const { catchment } = recipient
         const uid = encodeURIComponent(recipient.uid)
+        const matomoTitle = encodeURIComponent(recipient.template)
+        let subject = "Connect with WorkBC Employment Services"
         let body = ""
 
         // form link
         const form = recipient.template.includes("short")
-            ? `${process.env.SHORT_FORM}?uid=${uid}&title=${encodeURIComponent(`${recipient.template} redirect`)}&name=${encodeURIComponent(
+            ? `${process.env.SHORT_FORM}?uid=${uid}&title=${matomoTitle}%20redirect&name=${encodeURIComponent(
                   recipient.name
               )}&email=${encodeURIComponent(recipient.email)}&catchment=${catchment}`
-            : `${process.env.LONG_FORM}?uid=${uid}&title=${encodeURIComponent(recipient.template)}%20redirect`
+            : `${process.env.LONG_FORM}?uid=${uid}&title=${matomoTitle}%20redirect`
 
         // email template
-        if (recipient.template.includes("AC")) {
-            body = email2Template.email2("9", uid, encodeURIComponent(recipient.template), recipient.name, form)
-        } else {
-            body = email1Template.email1("8", uid, encodeURIComponent(recipient.template), recipient.name, form)
+        switch (recipient.template) {
+            case "AC short":
+            case "AC long":
+                body = email2Template.email2("9", uid, matomoTitle, recipient.name, form)
+                break
+            case "Standard short":
+            case "Standard long":
+            case "Control":
+                body = email1Template.email1("8", uid, matomoTitle, recipient.name, form)
+                break
+            case "Past WorkBC Client Email":
+                subject = "Reconnect with WorkBC Employment Services"
+                body = previousTemplate.previousEmail("12", uid, matomoTitle, recipient.name, form)
+                break
+
+            // temporary placeholder until we receive finalized reminder email
+            /* case "Reminder":
+                subject = "Reminder to Connect with WorkBC Employment Services"
+                body = reminderTemplate.reminderEmail("11", uid, matomoTitle, recipient.name, form)
+                break */
+            default:
+                throw new Error("Email type is not recognized")
         }
 
         // make emailing request
@@ -94,8 +116,8 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
             encoding: "utf-8",
             priority: "normal",
             bodyType: "html", // "html" or "text"
-            subject: `Connect with WorkBC Employment Services (${recipient.template} template)`,
-            from: "sdpr.elmsdtechnical@gov.bc.ca",
+            subject: `${subject}`,
+            from: "WorkBC No-Reply <workbc-noreply@gov.bc.ca>",
             body
         }
         const sendEmailResult: AxiosResponse = await chesApi.post("api/v1/email", req, {
