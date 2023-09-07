@@ -76,7 +76,7 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
         const uid = encodeURIComponent(recipient.uid)
         const matomoTitle = encodeURIComponent(recipient.template)
         let body = ""
-        const reminder = !!recipient.template.includes("reminder")
+        const reminder = recipient.template.includes("reminder")
         let subject = reminder ? "Reminder: Connect with WorkBC Employment Services" : "Connect with WorkBC Employment Services"
 
         // form link
