@@ -24,6 +24,6 @@ model Submission {
   id        Int      @id @default(autoincrement())
   uid       String   @unique
   email     String
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
   action    String   @default("")
 }
