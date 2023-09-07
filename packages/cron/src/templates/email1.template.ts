@@ -5,6 +5,7 @@
  * @param {string} campaign Name of Matomo campaign
  * @param {string} name Full name of email recipient
  * @param {string} form Link to recipient's form
+ * @param {boolean} reminder True if the email should be a reminder
  * @returns {string} Filled in HTML body of email
  * */
 const email1 = (
@@ -12,7 +13,8 @@ const email1 = (
     uid: string,
     campaign: string,
     name: string,
-    form: string
+    form: string,
+    reminder: boolean
 ): string => `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -62,7 +64,9 @@ const email1 = (
   <tbody>
   <tr>
     <td style="text-align:center;">
-      <img src="${process.env.IMAGES}/workbc-temp-files/WorkBCEmploymentServices_V_CMYK_pos.jpg" alt="WorkBC Employment Services" width="250" style="max-height:125px; max-width:250px; Margin:auto;">
+      <img src="${
+          process.env.IMAGES
+      }/workbc-temp-files/WorkBCEmploymentServices_V_CMYK_pos.jpg" alt="WorkBC Employment Services" width="250" style="max-height:125px; max-width:250px; Margin:auto;">
     </td>
   </tr>
   </tbody>
@@ -77,7 +81,9 @@ const email1 = (
     </tr>
   </tbody>
 </table>
-<p style="line-height: 24px; font-size: 15px; margin: 0;">We wanted to let you know about WorkBC, a free employment service to support you in your job search.</p>
+<p style="line-height: 24px; font-size: 15px; margin: 0;">${
+    reminder ? "Two weeks ago, we emailed to let you know about WorkBC," : "We wanted to let you know about WorkBC,"
+} a free employment service to support you in your job search.</p>
 <table class="s-3 w-100" cellpadding="0" cellspacing="0" style="width: 100%;">
   <tbody>
     <tr>
@@ -174,7 +180,9 @@ const email1 = (
     <tbody>
     <tr>
       <td style="text-align:center;">
-        <img src="${process.env.IMAGES}/workbc-temp-files/Canada-BC-Tagline_LockupMark_CMYK_Pos.jpg" alt="Canada BC Funding Acknowledgement" width="250" style="max-height:90px; max-width:250px; Margin:auto;">
+        <img src="${
+            process.env.IMAGES
+        }/workbc-temp-files/Canada-BC-Tagline_LockupMark_CMYK_Pos.jpg" alt="Canada BC Funding Acknowledgement" width="250" style="max-height:90px; max-width:250px; Margin:auto;">
       </td>
       </tr>
     </tbody>

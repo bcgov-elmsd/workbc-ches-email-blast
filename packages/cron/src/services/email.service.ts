@@ -75,8 +75,9 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
         const { catchment } = recipient
         const uid = encodeURIComponent(recipient.uid)
         const matomoTitle = encodeURIComponent(recipient.template)
-        let subject = "Connect with WorkBC Employment Services"
         let body = ""
+        const reminder = !!recipient.template.includes("reminder")
+        let subject = reminder ? "Reminder: Connect with WorkBC Employment Services" : "Connect with WorkBC Employment Services"
 
         // form link
         const form = recipient.template.includes("short")
@@ -86,26 +87,21 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
             : `${process.env.LONG_FORM}?uid=${uid}&title=${matomoTitle}%20redirect`
 
         // email template
-        switch (recipient.template) {
+        switch (recipient.template.split(" reminder")[0]) {
             case "AC short":
             case "AC long":
-                body = email2Template.email2("9", uid, matomoTitle, recipient.name, form)
+                body = email2Template.email2("9", uid, matomoTitle, recipient.name, form, reminder)
                 break
             case "Standard short":
             case "Standard long":
             case "Control":
-                body = email1Template.email1("8", uid, matomoTitle, recipient.name, form)
+                body = email1Template.email1("8", uid, matomoTitle, recipient.name, form, reminder)
                 break
             case "Past WorkBC Client Email":
                 subject = "Reconnect with WorkBC Employment Services"
                 body = previousTemplate.previousEmail("12", uid, matomoTitle, recipient.name, form)
                 break
 
-            // temporary placeholder until we receive finalized reminder email
-            /* case "Reminder":
-                subject = "Reminder to Connect with WorkBC Employment Services"
-                body = reminderTemplate.reminderEmail("11", uid, matomoTitle, recipient.name, form)
-                break */
             default:
                 throw new Error("Email type is not recognized")
         }
