@@ -98,7 +98,7 @@ const sendEmail = async (chesToken: string, recipient: Email): Promise<AxiosResp
                 body = email1Template.email1(reminder ? "11" : "8", uid, matomoTitle, recipient.name, form, reminder)
                 break
             case "Past WorkBC Client Email":
-                subject = `${reminder && "Reminder: "}Reconnect with WorkBC Employment Services`
+                subject = `${reminder ? "Reminder: " : ""}Reconnect with WorkBC Employment Services`
                 body = previousTemplate.previousEmail(reminder ? "11" : "12", uid, matomoTitle, recipient.name, form)
                 break
 
