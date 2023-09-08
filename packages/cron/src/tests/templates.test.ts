@@ -8,7 +8,8 @@ describe("email1 template is filled in correctly", () => {
         "1",
         encodeURIComponent("Standard short redirect"),
         "Trista Dhami",
-        `${process.env.SHORT_FORM}?uid=1&title=${encodeURIComponent("Standard short redirect")}&name=${encodeURIComponent("Trista Dhami")}`
+        `${process.env.SHORT_FORM}?uid=1&title=${encodeURIComponent("Standard short redirect")}&name=${encodeURIComponent("Trista Dhami")}`,
+        false
     )
 
     it("Matomo img tracker", () => {
@@ -36,7 +37,8 @@ describe("email2 template is filled in correctly", () => {
         "2",
         encodeURIComponent("AC short redirect"),
         "Brian Pham",
-        `${process.env.SHORT_FORM}?uid=2&title=${encodeURIComponent("AC short redirect")}&name=${encodeURIComponent("Brian Pham")}`
+        `${process.env.SHORT_FORM}?uid=2&title=${encodeURIComponent("AC short redirect")}&name=${encodeURIComponent("Brian Pham")}`,
+        false
     )
 
     it("Matomo img tracker", () => {

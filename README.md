@@ -52,6 +52,7 @@ limitations under the License.
     | AC short                 | email2                 | SHORT_FORM              | active choice email, link to custom form                                |
     | Past WorkBC Client Email | previous               | LONG_FORM               | previous client email, link to OES. To be sent at the end of the trial. |
     | Control                  | email1                 | LONG_FORM               | standard email, link to OES. To be sent one month after the trial.      |
+Note: to send a reminder email, append "reminder" to the end of any "Standard" or "AC" template (and change **status** back to "pending")
 - **status**, the current state of the email
     - pending
     - sent
