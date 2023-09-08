@@ -56,7 +56,7 @@ export const sendEmail = async (token: string, body: string, subject: string, to
             // cc: [],
             // delayTs: 0,
             encoding: "utf-8",
-            from: "WorkBC No-Reply SDPR:EX <workbc-noreply@gov.bc.ca>",
+            from: "WorkBC No-Reply <workbc-noreply@gov.bc.ca>",
             priority: "normal",
             subject,
             to,
