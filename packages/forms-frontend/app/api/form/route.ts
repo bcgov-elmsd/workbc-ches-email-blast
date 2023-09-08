@@ -46,7 +46,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
         //  send email to centre
         const token = await getToken()
         const html = generateHTMLTemplate("New WorkBC Client", json.centrename, json)
-        await sendEmail(token, html, "New WorkBC Client", [json.centreemail])
+        const emailResult = await sendEmail(token, html, "New WorkBC Client", [json.centreemail])
+        console.log(`Email sent to ${json.centreemail}`)
+
+        console.log(emailResult)
 
         //  on success append a submission record
         const resp = await prisma.submission.create({
