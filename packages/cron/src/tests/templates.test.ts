@@ -6,7 +6,7 @@ describe("email1 template is filled in correctly", () => {
     const emailBody = email1Template.email1(
         "8",
         "1",
-        encodeURIComponent("Standard short redirect"),
+        encodeURIComponent("Standard short"),
         "Trista Dhami",
         `${process.env.SHORT_FORM}?uid=1&title=${encodeURIComponent("Standard short redirect")}&name=${encodeURIComponent("Trista Dhami")}`,
         false
@@ -15,7 +15,7 @@ describe("email1 template is filled in correctly", () => {
     it("Matomo img tracker", () => {
         expect(emailBody).toEqual(
             expect.stringContaining(
-                '<img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=8&amp;rec=1&amp;uid=1&amp;_rcn=Standard%20short%20redirect&amp;action_name=Email" style="border:0" alt="" />'
+                '<img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=8&amp;rec=1&amp;uid=1&amp;_rcn=Standard%20short&amp;action_name=Standard%20short%20Email" style="border:0" alt="" />'
             )
         )
     })
@@ -35,7 +35,7 @@ describe("email2 template is filled in correctly", () => {
     const emailBody = email2Template.email2(
         "9",
         "2",
-        encodeURIComponent("AC short redirect"),
+        encodeURIComponent("AC short"),
         "Brian Pham",
         `${process.env.SHORT_FORM}?uid=2&title=${encodeURIComponent("AC short redirect")}&name=${encodeURIComponent("Brian Pham")}`,
         false
@@ -44,7 +44,7 @@ describe("email2 template is filled in correctly", () => {
     it("Matomo img tracker", () => {
         expect(emailBody).toEqual(
             expect.stringContaining(
-                '<img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=9&amp;rec=1&amp;uid=2&amp;_rcn=AC%20short%20redirect&amp;action_name=Email" style="border:0" alt="" />'
+                '<img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=9&amp;rec=1&amp;uid=2&amp;_rcn=AC%20short&amp;action_name=AC%20short%20Email" style="border:0" alt="" />'
             )
         )
     })
@@ -70,7 +70,7 @@ describe("previousEmail template is filled in correctly", () => {
     it("Matomo img tracker", () => {
         expect(emailBody).toEqual(
             expect.stringContaining(
-                '<img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=12&amp;rec=1&amp;uid=3&amp;_rcn=Previous%20WorkBC%20Client%20Email&amp;action_name=Email" style="border:0" alt="" />'
+                '<img referrerpolicy="no-referrer-when-downgrade" src="https://elmsd-matomo.apps.silver.devops.gov.bc.ca/matomo.php?idsite=12&amp;rec=1&amp;uid=3&amp;_rcn=Previous%20WorkBC%20Client%20Email&amp;action_name=Previous%20WorkBC%20Client%20Email" style="border:0" alt="" />'
             )
         )
     })
