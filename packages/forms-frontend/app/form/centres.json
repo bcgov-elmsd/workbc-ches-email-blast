@@ -1,8 +1,8 @@
 {
     "data": [
         {
-            "CatchmentNo": "1",
-            "AbbreviatedCode": "1-ES",
+            "CatchmentNo": "01",
+            "AbbreviatedCode": "01-ES",
             "CatchmentAreaCode": "101",
             "Title": "Vancouver Island North",
             "Storefronts": [
@@ -33,8 +33,8 @@
             ]
         },
         {
-            "CatchmentNo": "2",
-            "AbbreviatedCode": "2-ES",
+            "CatchmentNo": "02",
+            "AbbreviatedCode": "02-ES",
             "CatchmentAreaCode": "102",
             "Title": "Comox Valley - Powell River",
             "Storefronts": [
@@ -65,8 +65,8 @@
             ]
         },
         {
-            "CatchmentNo": "3",
-            "AbbreviatedCode": "3-ES",
+            "CatchmentNo": "03",
+            "AbbreviatedCode": "03-ES",
             "CatchmentAreaCode": "103",
             "Title": "Parksville - Alberni",
             "Storefronts": [
@@ -121,8 +121,8 @@
             ]
         },
         {
-            "CatchmentNo": "4",
-            "AbbreviatedCode": "4-ES",
+            "CatchmentNo": "04",
+            "AbbreviatedCode": "04-ES",
             "CatchmentAreaCode": "104",
             "Title": "Nanaimo",
             "Storefronts": [
@@ -141,8 +141,8 @@
             ]
         },
         {
-            "CatchmentNo": "5",
-            "AbbreviatedCode": "5-ES",
+            "CatchmentNo": "05",
+            "AbbreviatedCode": "05-ES",
             "CatchmentAreaCode": "105",
             "Title": "Cowichan Valley",
             "Storefronts": [
@@ -173,8 +173,8 @@
             ]
         },
         {
-            "CatchmentNo": "6",
-            "AbbreviatedCode": "6-ES",
+            "CatchmentNo": "06",
+            "AbbreviatedCode": "06-ES",
             "CatchmentAreaCode": "106",
             "Title": "Langford - Sooke",
             "Storefronts": [
@@ -205,8 +205,8 @@
             ]
         },
         {
-            "CatchmentNo": "7",
-            "AbbreviatedCode": "7-ES",
+            "CatchmentNo": "07",
+            "AbbreviatedCode": "07-ES",
             "CatchmentAreaCode": "107",
             "Title": "Greater Victoria",
             "Storefronts": [
@@ -237,8 +237,8 @@
             ]
         },
         {
-            "CatchmentNo": "8",
-            "AbbreviatedCode": "8-ES",
+            "CatchmentNo": "08",
+            "AbbreviatedCode": "08-ES",
             "CatchmentAreaCode": "108",
             "Title": "Saanich Peninsula - Gulf Islands",
             "Storefronts": [
@@ -269,8 +269,8 @@
             ]
         },
         {
-            "CatchmentNo": "9",
-            "AbbreviatedCode": "9-ES",
+            "CatchmentNo": "09",
+            "AbbreviatedCode": "09-ES",
             "CatchmentAreaCode": "109",
             "Title": "Sea to Sky",
             "Storefronts": [
