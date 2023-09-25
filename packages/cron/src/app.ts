@@ -30,6 +30,7 @@ app.get("/", (req: Express.Request, res: any) => {
 // Cron job to schedule email delivery
 // between 8AM to 6PM PST, every 5 minutes, send 60 emails
 // Note: maximum recommended usage is 60 emails per minute
+// 15pm to 0am UTC is 8am to 6pm PST
 cronService.startJob("* */5 15-0 * * 1-5", emailController.getAndSendEmail)
 
 const port = process.env.PORT || "8002"
