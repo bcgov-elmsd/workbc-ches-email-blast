@@ -12,8 +12,14 @@ import previousTemplate from "../templates/previous.template"
  * @returns {Promise<Email | null>} Email from database or null (when no Email has status "pending")
  */
 const getEmailByStatus = async (status: string): Promise<Email | null> => {
-    if (status !== "pending") {
-        throw new Error("Email status must be 'pending'")
+    if (status === "sent") {
+        const sentEmails = await prisma.email.findMany({
+            where: {
+                status: "sent"
+            },
+            take: 50
+        })
+        return sentEmails[0] || null
     }
     const emails = await prisma.email.findMany({
         where: {
