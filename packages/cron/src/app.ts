@@ -32,6 +32,7 @@ app.get("/", (req: Express.Request, res: any) => {
 // Note: maximum recommended usage is 60 emails per minute
 cronService.startJob("* */5 * * * 1-5", emailController.getAndSendEmail)
 
+
 const port = process.env.PORT || "8002"
 app.listen(port, () => {
     console.info(`server started at :${port}`)
