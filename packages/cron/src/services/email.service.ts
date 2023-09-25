@@ -11,12 +11,18 @@ import previousTemplate from "../templates/previous.template"
  * @description Get an email with specified status
  * @returns {Promise<Email | null>} Email from database or null (when no Email has status "pending")
  */
-const getEmailByStatus = async (status: string): Promise<Email | null> =>
-    prisma.email.findFirst({
+const getEmailByStatus = async (status: string): Promise<Email | null> => {
+    if (status !== "pending") {
+        throw new Error("Email status must be 'pending'")
+    }
+    const emails = await prisma.email.findMany({
         where: {
-            status
-        }
+            status: "pending"
+        },
+        take: 50
     })
+    return emails[0] || null
+}
 
 /**
  * @description Get 50 emails with status "pending"
