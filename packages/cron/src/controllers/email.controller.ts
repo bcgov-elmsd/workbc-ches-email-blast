@@ -20,7 +20,7 @@ const getAndSendEmail = async (): Promise<void> => {
     const token = await commonService.getToken()
 
     // get email and send it (if one exists)
-    const recipient = await emailService.getEmailByStatus("pending")
+    const recipient = await emailService.getEmailByStatus("")
     if (recipient != null) {
         // send email and save msgId
         const res = await emailService.sendEmail(token, recipient)
